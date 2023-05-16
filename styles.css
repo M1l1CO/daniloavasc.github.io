@@ -4236,13 +4236,7 @@ textarea.form-control-lg {
 @media (min-width: 992px) {
   .navbar-expand-lg {
     flex-wrap: nowrap;
-    justify-content: flex-start;
-    margin-top: 35px;
-    margin-bottom: 35px;
-    /* margin-left: 35px; */
-    /* padding-bottom: 70px; */
-    /* background-color: #1D2226; */
-} 
+    justify-content: flex-start; 
   }
   .navbar-expand-lg .navbar-nav {
     flex-direction: row;
