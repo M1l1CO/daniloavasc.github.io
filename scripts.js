@@ -46,3 +46,4 @@ function typeWrite(elemento){
 }
 const titulo = document.querySelector('.titulo-principal');
 typeWrite(titulo);
+
