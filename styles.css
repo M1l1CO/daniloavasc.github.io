@@ -643,7 +643,7 @@ progress {
   margin-bottom: 45px;
   /* margin-right: 35px; */
   margin-left: 35px ;
-  background-color: #1D2226;
+  background-color: linear-gradient(#121212, #212b46);
 }
 
 @media (min-width: 576px) {
