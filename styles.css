@@ -636,12 +636,12 @@ progress {
 .container-lg,
 .container-md,
 .container-sm {
-  width: 93%;
+  width: 88%;
   padding-right: var(--bs-gutter-x, 0.75rem);
   padding-left: var(--bs-gutter-x, 0.75rem);
   margin-top: 35px;
-  margin-bottom: 45px;
-  /* margin-right: 35px; */
+  margin-bottom: 35px;
+  margin-right: 35px;
   margin-left: 35px ;
   background-color: #1D2226;
 }
