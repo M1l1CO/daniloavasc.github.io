@@ -1,0 +1,17 @@
+.profile-action--resume {
+  min-height: 2.9rem;
+  padding: 0.75rem 1rem;
+  border-color: rgb(241 162 141 / 50%);
+  border-radius: 0.65rem;
+  background: rgb(189 93 56 / 12%);
+  color: #f1a28d;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+.profile-action--resume:hover {
+  border-color: #f1a28d;
+  background: rgb(189 93 56 / 24%);
+  color: #fff;
+}
