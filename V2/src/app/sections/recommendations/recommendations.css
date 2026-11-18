@@ -1,3 +1,18 @@
+.recommendations-intro {
+  margin: -0.5rem 0 1.25rem;
+  color: #d3d7da;
+}
+
+.recommendations-intro a {
+  color: #f1a28d;
+  font-weight: 700;
+  text-underline-offset: 0.2em;
+}
+
+.recommendations-intro a:hover {
+  color: #ffbea9;
+}
+
 .recommendations-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
@@ -9,7 +24,7 @@
   --mat-card-outlined-container-color: rgb(255 255 255 / 5%);
   --mat-card-outlined-container-shape: 1rem;
   --mat-card-outlined-outline-width: 1px;
-  --mat-card-outlined-outline-color: rgb(255 255 255 / 12%);
+  --mat-card-outlined-outline-color: rgb(189 93 56 / 28%);
   --mat-card-title-text-font: var(--bs-body-font-family, sans-serif);
   --mat-card-title-text-line-height: 1.3;
   --mat-card-title-text-size: 1.1rem;
@@ -25,12 +40,43 @@
   padding: 1.4rem;
 }
 
-.recommendation-card__header {
+.recommendation-disclosure {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+}
+
+.recommendation-card__toggle {
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 1.25rem;
+  padding: 0.2rem;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+.recommendation-card__toggle::-webkit-details-marker {
+  display: none;
+}
+
+.recommendation-card__toggle:focus-visible {
+  outline: 2px solid #f1a28d;
+  outline-offset: 3px;
+}
+
+.recommendation-card__header {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  align-items: center;
+  gap: 1rem;
+  margin: 0;
   padding: 0;
+}
+
+.recommendation-card__header > div {
+  min-width: 0;
 }
 
 .recommendation-card__header h3 {
@@ -61,8 +107,40 @@
 
 .recommendation-card__body {
   flex: 1;
+  margin-top: 1rem;
   padding: 0;
   color: #d3d7da;
+}
+
+.recommendation-chevron {
+  width: 0.55rem;
+  height: 0.55rem;
+  flex: 0 0 auto;
+  margin-right: 0.2rem;
+  border-right: 2px solid #f1a28d;
+  border-bottom: 2px solid #f1a28d;
+  transform: translateY(-0.15rem) rotate(45deg);
+  transition: transform 180ms ease;
+}
+
+.recommendation-disclosure[open] .recommendation-chevron {
+  transform: translateY(0.15rem) rotate(225deg);
+}
+
+.recommendation-card__toggle:hover .recommendation-chevron,
+.recommendation-card__toggle:focus-visible .recommendation-chevron {
+  border-color: #fff;
+}
+
+.recommendation-summary {
+  margin: 0;
+  padding-left: 1.1rem;
+  border-left: 3px solid #bd5d38;
+  line-height: 1.65;
+}
+
+.recommendation-summary strong {
+  color: #f1a28d;
 }
 
 .recommendation-card blockquote {
@@ -82,8 +160,15 @@
 
 .recommendation-source {
   margin-top: auto;
-  padding: 1.25rem 0 0 1.1rem;
+  padding: 0.85rem 0 0;
+  border-top: 1px solid rgb(189 93 56 / 24%);
   color: #f1a28d;
   font-size: 0.85rem;
   font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .recommendation-chevron {
+    transition: none;
+  }
 }

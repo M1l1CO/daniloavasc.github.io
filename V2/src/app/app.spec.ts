@@ -20,7 +20,7 @@ describe('App', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('h1')?.textContent).toContain('Danilo');
     expect(compiled.querySelector('.profile-role')?.textContent).toContain('Engenheiro de Software Sênior');
-    expect(compiled.querySelector('.profile-action--primary')?.getAttribute('href')).toContain(
+    expect(compiled.querySelector('.profile-action--linkedin')?.getAttribute('href')).toContain(
       'linkedin.com',
     );
     expect(compiled.querySelector('#about')).toBeTruthy();
@@ -31,6 +31,11 @@ describe('App', () => {
     expect(compiled.querySelector('.profile-location')?.textContent).toContain(
       'São Paulo, Brasil · Híbrido',
     );
+    const avatarControls = compiled.querySelector('#about .profile-avatar-controls');
+    expect(avatarControls?.textContent?.trim()).toBe('');
+    expect(avatarControls?.querySelector('button')?.getAttribute('aria-label')).toBe(
+      'Redefinir posição da foto',
+    );
     expect(compiled.querySelector('#experience')).toBeTruthy();
     expect(compiled.querySelector('#education')).toBeTruthy();
     expect(compiled.querySelector('#recommendations')).toBeTruthy();
@@ -38,7 +43,66 @@ describe('App', () => {
     expect(compiled.querySelector('#interests')).toBeTruthy();
     expect(compiled.querySelector('#awards')).toBeTruthy();
     expect(compiled.querySelector('app-site-navigation')).toBeTruthy();
+    expect(
+      Array.from(compiled.querySelectorAll<HTMLAnchorElement>('#navbarResponsive a')).map((link) =>
+        link.getAttribute('href'),
+      ),
+    ).toEqual([
+      '#about',
+      '#experience',
+      '#education',
+      '#skills',
+      '#awards',
+      '#recommendations',
+      '#interests',
+    ]);
   });
+
+  it('should not show a shortcut to the experience section in About', () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('#about a[href="#experience"]')).toBeNull();
+  });
+
+  it('should show all five LinkedIn recommendations', () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+
+    const recommendations = fixture.nativeElement.querySelectorAll(
+      '#recommendations .recommendation-card',
+    );
+    expect(recommendations).toHaveLength(5);
+    expect(
+      fixture.nativeElement.querySelectorAll('#recommendations .recommendation-summary'),
+    ).toHaveLength(3);
+    const disclosures = (fixture.nativeElement as HTMLElement).querySelectorAll<HTMLDetailsElement>(
+      '#recommendations .recommendation-disclosure',
+    );
+    expect(disclosures).toHaveLength(5);
+    expect(Array.from(disclosures).every((disclosure) => !disclosure.open)).toBe(true);
+    disclosures[0].querySelector('summary')?.click();
+    expect(disclosures[0].open).toBe(true);
+  });
+
+  it(
+    'should hide the navigation after inactivity and reveal it on activity',
+    async () => {
+      const fixture = TestBed.createComponent(App);
+      fixture.detectChanges();
+      await new Promise<void>((resolve) => setTimeout(resolve, 5100));
+      fixture.detectChanges();
+
+      const navigation = fixture.nativeElement.querySelector('#sideNav');
+      expect(navigation.classList.contains('navbar--hidden')).toBe(true);
+
+      document.dispatchEvent(new Event('pointerdown'));
+      fixture.detectChanges();
+      expect(navigation.classList.contains('navbar--hidden')).toBe(false);
+      fixture.destroy();
+    },
+    10000,
+  );
 
   it('should render each listed employer as an experience card with a logo', () => {
     const fixture = TestBed.createComponent(App);

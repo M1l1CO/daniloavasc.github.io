@@ -141,7 +141,7 @@ export class About {
         position = this.maxProfilePosition;
         break;
       case 'Escape':
-        position = 50;
+        position = this.initialProfilePosition;
         break;
       default:
         return;
@@ -149,6 +149,10 @@ export class About {
 
     event.preventDefault();
     this.setProfilePosition(position);
+  }
+
+  resetProfilePosition(): void {
+    this.setProfilePosition(this.initialProfilePosition);
   }
 
   downloadResume(): void {

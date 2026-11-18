@@ -41,7 +41,7 @@ section.resume-section {
   flex-direction: column;
   justify-content: flex-start;
   padding: clamp(1.5rem, 4vw, 3.25rem);
-  border: 1px solid rgb(255 255 255 / 10%);
+  border: 1px solid rgb(189 93 56 / 26%);
   border-radius: 1.25rem;
   background-color: rgb(20 24 28 / 88%);
   box-shadow: 0 1.5rem 4rem rgb(0 0 0 / 28%);
@@ -129,6 +129,17 @@ section.resume-section {
   margin-top: 0.75rem;
 }
 
+.profile-avatar-controls {
+  position: absolute;
+  top: calc(var(--profile-cover-height) + 2.65rem);
+  left: clamp(
+    0.5rem,
+    calc(var(--profile-position, 50%) + 2rem),
+    calc(100% - 5.6rem)
+  );
+  z-index: 1;
+}
+
 .profile-action {
   display: inline-flex;
   min-height: 2.9rem;
@@ -194,16 +205,6 @@ section.resume-section {
   padding-inline: 0.85rem;
 }
 
-.profile-action--secondary {
-  border-color: rgb(255 255 255 / 24%);
-  color: #fff;
-}
-
-.profile-action--secondary:hover {
-  border-color: #bd5d38;
-  color: #fff;
-}
-
 .profile-action--github {
   min-width: 2.9rem;
   padding-inline: 0.85rem;
@@ -214,6 +215,13 @@ section.resume-section {
 .profile-action--github:hover {
   background: #454d56;
   color: #fff;
+}
+
+.profile-contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
 }
 
 .profile-action:focus-visible {
@@ -321,7 +329,7 @@ section.resume-section {
 
 .experience-grid--previous .experience-card {
   --mat-card-outlined-container-color: rgb(255 255 255 / 3%);
-  --mat-card-outlined-outline-color: rgb(255 255 255 / 9%);
+  --mat-card-outlined-outline-color: rgb(189 93 56 / 22%);
 
   padding: 0.85rem;
 }
@@ -334,7 +342,7 @@ section.resume-section {
   --mat-card-outlined-container-color: rgb(255 255 255 / 4%);
   --mat-card-outlined-container-shape: 1rem;
   --mat-card-outlined-outline-width: 1px;
-  --mat-card-outlined-outline-color: rgb(255 255 255 / 12%);
+  --mat-card-outlined-outline-color: rgb(189 93 56 / 26%);
   --mat-card-outlined-container-elevation: 0 0.9rem 2rem rgb(0 0 0 / 18%);
   --mat-card-title-text-font: 'Saira Extra Condensed', sans-serif;
   --mat-card-title-text-line-height: 1.2;
@@ -545,7 +553,7 @@ section.resume-section {
   height: 2rem;
   place-items: center;
   box-sizing: border-box;
-  border: 1px solid rgb(255 255 255 / 12%);
+  border: 1px solid rgb(189 93 56 / 25%);
   border-radius: 50%;
   background: rgb(255 255 255 / 4%);
   color: #adb5bd;
@@ -589,7 +597,7 @@ section.resume-section {
 .experience-card__details {
   margin-top: 0.75rem;
   padding-top: 1rem;
-  border-top: 1px solid rgb(255 255 255 / 12%);
+  border-top: 1px solid rgb(189 93 56 / 25%);
 }
 
 .experience-card__details [mat-card-title] {
@@ -717,6 +725,20 @@ section.resume-section {
   .profile-action {
     width: 100%;
     box-sizing: border-box;
+  }
+
+  .profile-contact-links {
+    align-self: center;
+  }
+
+  .profile-contact-links .profile-action {
+    width: 2.9rem;
+    flex: 0 0 2.9rem;
+    padding-inline: 0.85rem;
+  }
+
+  .profile-actions > .profile-action--resume {
+    width: 100%;
   }
 
   .resume-date {

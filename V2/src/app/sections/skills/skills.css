@@ -10,7 +10,7 @@
 
   padding: 1.5rem;
   overflow: hidden;
-  border: 1px solid rgb(255 255 255 / 8%);
+  border: 1px solid rgb(189 93 56 / 24%);
   border-radius: 1.25rem;
   background:
     radial-gradient(ellipse at 50% 0, rgb(189 93 56 / 13%), transparent 48%),
@@ -216,7 +216,7 @@
 .skill-insight {
   margin-top: 1rem;
   padding: 1rem 1.15rem;
-  border: 1px solid rgb(255 255 255 / 8%);
+  border: 1px solid rgb(189 93 56 / 24%);
   border-radius: 0.95rem;
   background: linear-gradient(110deg, rgb(189 93 56 / 11%), rgb(255 255 255 / 3%));
 }

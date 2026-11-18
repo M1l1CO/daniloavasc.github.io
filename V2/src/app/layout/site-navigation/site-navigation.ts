@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, inject, NgZone, OnDestroy } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  NgZone,
+  OnDestroy,
+} from '@angular/core';
 
 type NavigationSection =
   | 'about'
@@ -17,22 +24,54 @@ type NavigationSection =
 })
 export class SiteNavigation implements AfterViewInit, OnDestroy {
   private readonly zone = inject(NgZone);
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
   private observer: IntersectionObserver | undefined;
   private readonly sectionIds: readonly NavigationSection[] = [
     'about',
     'experience',
-    'skills',
     'education',
+    'skills',
     'awards',
     'recommendations',
     'interests',
   ];
+  private readonly activityEvents = ['pointermove', 'pointerdown', 'keydown', 'touchstart', 'wheel'];
+  private inactivityTimer: ReturnType<typeof setTimeout> | undefined;
+  private lastActivityAt = 0;
+  private readonly handleActivity = (): void => {
+    const now = Date.now();
+    if (now - this.lastActivityAt < 250) {
+      return;
+    }
+
+    this.lastActivityAt = now;
+    if (this.navbarHidden) {
+      this.zone.run(() => {
+        this.navbarHidden = false;
+        this.changeDetectorRef.markForCheck();
+      });
+    }
+    this.scheduleAutoHide();
+  };
 
   protected menuOpen = false;
   protected activeSection: NavigationSection = 'about';
+  protected navbarHidden = false;
 
   ngAfterViewInit(): void {
-    if (typeof document === 'undefined' || typeof IntersectionObserver === 'undefined') {
+    if (typeof document === 'undefined') {
+      return;
+    }
+
+    this.zone.runOutsideAngular(() => {
+      this.activityEvents.forEach((eventName) =>
+        document.addEventListener(eventName, this.handleActivity, { passive: true }),
+      );
+      document.addEventListener('focusin', this.handleActivity);
+      this.scheduleAutoHide();
+    });
+
+    if (typeof IntersectionObserver === 'undefined') {
       return;
     }
 
@@ -54,6 +93,7 @@ export class SiteNavigation implements AfterViewInit, OnDestroy {
 
           this.zone.run(() => {
             this.activeSection = nextSection;
+            this.changeDetectorRef.markForCheck();
           });
         },
         { rootMargin: '-80px 0px -70% 0px' },
@@ -65,17 +105,68 @@ export class SiteNavigation implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.observer?.disconnect();
+    if (typeof document !== 'undefined') {
+      this.activityEvents.forEach((eventName) =>
+        document.removeEventListener(eventName, this.handleActivity),
+      );
+      document.removeEventListener('focusin', this.handleActivity);
+    }
+
+    if (this.inactivityTimer) {
+      clearTimeout(this.inactivityTimer);
+    }
   }
 
   toggleMenu(): void {
     this.menuOpen = !this.menuOpen;
+    this.navbarHidden = false;
+
+    if (this.menuOpen) {
+      this.clearInactivityTimer();
+      return;
+    }
+
+    this.scheduleAutoHide();
   }
 
   closeMenu(section?: NavigationSection): void {
     this.menuOpen = false;
+    this.scheduleAutoHide();
 
     if (section) {
       this.activeSection = section;
+    }
+  }
+
+  private scheduleAutoHide(): void {
+    this.clearInactivityTimer();
+    if (this.menuOpen || this.navbarHidden || typeof document === 'undefined') {
+      return;
+    }
+
+    this.inactivityTimer = setTimeout(() => {
+      const navigation = document.getElementById('sideNav');
+      const activeElement = document.activeElement;
+      const keyboardFocusIsInNavigation =
+        activeElement instanceof HTMLElement &&
+        navigation?.contains(activeElement) &&
+        activeElement.matches(':focus-visible');
+      if (this.menuOpen || keyboardFocusIsInNavigation) {
+        this.scheduleAutoHide();
+        return;
+      }
+
+      this.zone.run(() => {
+        this.navbarHidden = true;
+        this.changeDetectorRef.markForCheck();
+      });
+    }, 5000);
+  }
+
+  private clearInactivityTimer(): void {
+    if (this.inactivityTimer) {
+      clearTimeout(this.inactivityTimer);
+      this.inactivityTimer = undefined;
     }
   }
 }

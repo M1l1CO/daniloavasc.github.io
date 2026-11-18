@@ -13,7 +13,7 @@
         src="Img/Danilo1.jpg"
         alt="Foto de perfil de Danilo Vasconcellos"
         role="slider"
-        aria-label="Posição horizontal da foto de perfil. Arraste ou use as setas."
+        aria-label="Ajustar posição horizontal da foto de perfil"
         [attr.aria-valuemin]="minProfilePosition"
         [attr.aria-valuemax]="maxProfilePosition"
         [attr.aria-valuenow]="profilePosition"
@@ -25,6 +25,19 @@
         (pointercancel)="endDrag($event)"
         (keydown)="adjustPosition($event)"
       />
+      <div class="profile-avatar-controls" role="group" aria-label="Controles da foto de perfil">
+        <span class="profile-avatar-move-indicator" aria-hidden="true">
+          <i class="fas fa-arrows-left-right"></i>
+        </span>
+        <button
+          class="profile-avatar-reset"
+          type="button"
+          aria-label="Redefinir posição da foto"
+          (click)="resetProfilePosition()"
+        >
+          <i class="fas fa-rotate-left" aria-hidden="true"></i>
+        </button>
+      </div>
       <div #profileCopy class="profile-copy">
         <p class="about-eyebrow">Perfil profissional</p>
         <h1 class="text-center text-white">Danilo <span class="text-danger">Vasconcellos</span></h1>
@@ -41,43 +54,42 @@
           bancos de dados distribuídos e práticas de qualidade, observabilidade e entrega contínua.
         </p>
         <div class="profile-actions">
-          <a
-            class="profile-action profile-action--linkedin"
-            href="https://www.linkedin.com/in/daniloavasc/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn"
-          >
-            <i class="fab fa-linkedin-in" aria-hidden="true"></i>
-          </a>
-          <a
-            class="profile-action profile-action--whatsapp"
-            href="https://wa.me/5511951454849?text=Ol%C3%A1%21%20Tenho%20interesse%20nos%20seus%20servi%C3%A7os."
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="WhatsApp"
-          >
-            <i class="fab fa-whatsapp" aria-hidden="true"></i>
-          </a>
-          <a
-            class="profile-action profile-action--email"
-            href="mailto:daniloaraujo.vasconcellos@gmail.com?subject=Contato%20pelo%20portf%C3%B3lio&body=Ol%C3%A1%2C%20Danilo!%20Gostaria%20de%20conversar%20sobre%20seus%20servi%C3%A7os."
-            aria-label="Enviar e-mail para Danilo"
-          >
-            <i class="fas fa-envelope" aria-hidden="true"></i>
-          </a>
-          <a
-            class="profile-action profile-action--github"
-            href="https://github.com/M1l1CO"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
-          >
-            <i class="fab fa-github" aria-hidden="true"></i>
-          </a>
-          <a class="profile-action profile-action--secondary" href="#experience">
-            Conheça minha experiência
-          </a>
+          <div class="profile-contact-links" role="group" aria-label="Contatos e redes sociais">
+            <a
+              class="profile-action profile-action--linkedin"
+              href="https://www.linkedin.com/in/daniloavasc/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+            >
+              <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+            </a>
+            <a
+              class="profile-action profile-action--whatsapp"
+              href="https://wa.me/5511951454849?text=Ol%C3%A1%21%20Tenho%20interesse%20nos%20seus%20servi%C3%A7os."
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="WhatsApp"
+            >
+              <i class="fab fa-whatsapp" aria-hidden="true"></i>
+            </a>
+            <a
+              class="profile-action profile-action--email"
+              href="mailto:daniloaraujo.vasconcellos@gmail.com?subject=Contato%20pelo%20portf%C3%B3lio&body=Ol%C3%A1%2C%20Danilo!%20Gostaria%20de%20conversar%20sobre%20seus%20servi%C3%A7os."
+              aria-label="Enviar e-mail para Danilo"
+            >
+              <i class="fas fa-envelope" aria-hidden="true"></i>
+            </a>
+            <a
+              class="profile-action profile-action--github"
+              href="https://github.com/M1l1CO"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+            >
+              <i class="fab fa-github" aria-hidden="true"></i>
+            </a>
+          </div>
           <button
             class="profile-action profile-action--resume"
             type="button"

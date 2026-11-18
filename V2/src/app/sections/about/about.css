@@ -1,3 +1,41 @@
+.profile-avatar-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.profile-avatar-move-indicator,
+.profile-avatar-reset {
+  display: grid;
+  width: 2.4rem;
+  height: 2.4rem;
+  place-items: center;
+  border: 1px solid rgb(189 93 56 / 70%);
+  border-radius: 50%;
+  background: rgb(20 24 28 / 90%);
+  color: #f1a28d;
+}
+
+.profile-avatar-reset {
+  cursor: pointer;
+  font-size: 1rem;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.profile-avatar-reset:hover {
+  transform: rotate(-12deg);
+  background: #bd5d38;
+  color: #fff;
+}
+
+.profile-avatar-reset:focus-visible {
+  outline: 2px solid #f1a28d;
+  outline-offset: 3px;
+}
+
 .profile-action--resume {
   min-height: 2.9rem;
   padding: 0.75rem 1rem;
