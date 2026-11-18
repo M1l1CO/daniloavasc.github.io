@@ -1,95 +1,82 @@
 <div class="container-fluid rounded">
-  <!-- Skills-->
   <section class="resume-section" id="skills">
     <div class="resume-section-content">
       <h2 class="mb-4 text-danger">Habilidades</h2>
-      <div class="subheading mb-3">Desenvolvimento e aplicações</div>
-      <ul class="skill-grid list-unstyled mb-4">
-        <li class="skill-card">
-          <span class="skill-icon" aria-hidden="true"
-            ><img
-              src="https://raw.githubusercontent.com/devicons/devicon/master/icons/csharp/csharp-original.svg"
-              alt="" /></span
-          ><span class="skill-name">C#</span>
-        </li>
-        <li class="skill-card">
-          <span class="skill-icon" aria-hidden="true"
-            ><img
-              src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-plain.svg"
-              alt="" /></span
-          ><span class="skill-name">JavaScript</span>
-        </li>
-        <li class="skill-card">
-          <span class="skill-icon" aria-hidden="true"
-            ><img
-              src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg"
-              alt="" /></span
-          ><span class="skill-name">HTML5</span>
-        </li>
-        <li class="skill-card">
-          <span class="skill-icon" aria-hidden="true"
-            ><img
-              src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg"
-              alt="" /></span
-          ><span class="skill-name">CSS3</span>
-        </li>
-      </ul>
-      <div class="subheading mb-3">Dados, cloud e operações</div>
-      <ul class="skill-grid list-unstyled mb-5">
-        <li class="skill-card">
-          <span class="skill-icon" aria-hidden="true"
-            ><img
-              src="https://raw.githubusercontent.com/devicons/devicon/master/icons/jira/jira-original.svg"
-              alt="" /></span
-          ><span class="skill-name">Jira / ITIL</span>
-        </li>
-        <li class="skill-card">
-          <span class="skill-icon" aria-hidden="true"
-            ><img
-              src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original.svg"
-              alt="" /></span
-          ><span class="skill-name">MongoDB</span>
-        </li>
-        <li class="skill-card">
-          <span class="skill-icon" aria-hidden="true"
-            ><img
-              src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original.svg"
-              alt="" /></span
-          ><span class="skill-name">PostgreSQL</span>
-        </li>
-        <li class="skill-card">
-          <span class="skill-icon" aria-hidden="true"
-            ><img
-              src="https://raw.githubusercontent.com/devicons/devicon/master/icons/googlecloud/googlecloud-original.svg"
-              alt="" /></span
-          ><span class="skill-name">Google Cloud</span>
-        </li>
-        <li class="skill-card">
-          <span class="skill-icon" aria-hidden="true"
-            ><img
-              src="https://raw.githubusercontent.com/devicons/devicon/master/icons/oracle/oracle-original.svg"
-              alt="" /></span
-          ><span class="skill-name">Oracle</span>
-        </li>
-      </ul>
-      <div class="skill-keywords" aria-label="Competências técnicas">
-        <p>
-          <strong>Desenvolvimento:</strong> C#, .NET Framework, ASP.NET MVC, APIs REST, JavaScript,
-          HTML5, CSS3 e Bootstrap.
-        </p>
-        <p>
-          <strong>Dados e cloud:</strong> SQL, PL/SQL, Oracle, PostgreSQL, MongoDB, Google Cloud
-          Platform (GCP) e Microsoft Azure.
-        </p>
-        <p>
-          <strong>Suporte e operações:</strong> ITIL, Jira, ServiceNow, Remedy, troubleshooting,
-          análise de logs, gestão de incidentes e atendimento de chamados.
-        </p>
-        <p>
-          <strong>Ferramentas:</strong> Microsoft Visual Studio, Visual Studio Code, Postman, Git,
-          GitLab e GitHub.
-        </p>
+      <p class="skill-intro">
+        Uma visão interativa das tecnologias e práticas que se conectam na minha atuação em software
+        financeiro. Selecione um ponto para explorar.
+      </p>
+
+      <div class="skill-map" role="group" aria-label="Mapa interativo de habilidades">
+        <div class="skill-map__core">
+          <strong>Engenharia de software</strong>
+          <span>Serviços financeiros</span>
+        </div>
+
+        <div class="skill-map__branches">
+          @for (group of groups; track group.id) {
+            <section class="skill-cluster" [attr.aria-labelledby]="'skill-group-' + group.id">
+              <h3 class="skill-cluster__title" [id]="'skill-group-' + group.id">
+                {{ group.title }}
+              </h3>
+              <ul class="skill-node-list">
+                @for (skill of group.skills; track skill.id) {
+                  <li>
+                    <button
+                      class="skill-card"
+                      [class.skill-card--selected]="selectedSkillId === skill.id"
+                      [attr.aria-label]="skill.name + ' — ' + group.title"
+                      [attr.aria-pressed]="selectedSkillId === skill.id"
+                      type="button"
+                      (click)="selectSkill(skill.id)"
+                    >
+                      <span class="skill-icon" aria-hidden="true">
+                        @if (skill.icon) {
+                          <img [src]="'assets/skills/' + skill.icon" alt="" />
+                        } @else {
+                          <span class="skill-icon__symbol">{{ skill.symbol }}</span>
+                        }
+                      </span>
+                      <span class="skill-name">{{ skill.name }}</span>
+                    </button>
+                  </li>
+                }
+              </ul>
+            </section>
+          }
+        </div>
       </div>
+
+      <div class="skill-insight" aria-live="polite">
+        @if (selectedSkill; as skill) {
+          <div class="skill-insight__copy">
+            <p class="skill-insight__group">{{ selectedGroup?.title }}</p>
+            <h3>{{ skill.name }}</h3>
+            <p>{{ skill.summary }}</p>
+          </div>
+        }
+      </div>
+
+      <details class="skill-extra-details">
+        <summary>Outras competências e ferramentas</summary>
+        <div class="skill-keywords" aria-label="Competências técnicas adicionais">
+          <p>
+            <strong>Desenvolvimento:</strong> .NET, APIs REST, microsserviços, testes unitários e de
+            carga.
+          </p>
+          <p>
+            <strong>Cloud e dados:</strong> AWS (EC2 e RDS), Athena, SQL, PL/SQL, Oracle, PostgreSQL,
+            MongoDB e Google Cloud Platform (GCP).
+          </p>
+          <p>
+            <strong>Engenharia e operações:</strong> CI/CD, Git, Azure Repos, GitLab, GitHub, ITIL,
+            Jira, ServiceNow e Remedy.
+          </p>
+          <p>
+            <strong>Ferramentas:</strong> Postman, Microsoft Visual Studio e Visual Studio Code.
+          </p>
+        </div>
+      </details>
     </div>
   </section>
 </div>

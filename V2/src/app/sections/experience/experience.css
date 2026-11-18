@@ -1,0 +1,24 @@
+.company-logo-frame--asa {
+  padding: 0;
+  border: 0;
+  background: #b6a36e;
+}
+
+.company-logo-frame--full-bleed {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.experience-card .company-logo--asa {
+  border-radius: 0.85rem;
+  object-fit: cover;
+}
+
+.company-role-label {
+  min-width: 0;
+  color: #f1a28d;
+  font-weight: 700;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
