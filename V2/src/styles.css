@@ -1,0 +1,591 @@
+body {
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+app-root {
+  display: block;
+  min-height: 100vh;
+}
+
+.container-fluid.rounded {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 1rem 0.5rem;
+  background-color: transparent;
+}
+
+@media (min-width: 992px) {
+  .container-fluid.rounded {
+    padding-inline: 1rem;
+  }
+}
+
+section.resume-section {
+  width: min(calc(100% - 1rem), 82rem);
+  max-width: 82rem;
+  min-height: auto;
+  padding: clamp(2rem, 4vw, 3.5rem) clamp(1rem, 3vw, 2.5rem);
+  margin-inline: auto;
+  scroll-margin-top: 4.5rem;
+}
+
+.resume-section .resume-section-content {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: clamp(1.5rem, 4vw, 3.25rem);
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 1.25rem;
+  background-color: rgb(20 24 28 / 88%);
+  box-shadow: 0 1.5rem 4rem rgb(0 0 0 / 28%);
+  backdrop-filter: blur(8px);
+}
+
+#about.resume-section {
+  display: flex;
+  min-height: min(100svh, 58rem);
+  align-items: center;
+}
+
+#about .resume-section-content {
+  min-height: clamp(30rem, 68vh, 42rem);
+  justify-content: center;
+}
+
+.resume-section h2 {
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.025em;
+}
+
+.resume-section h3 {
+  color: #f8f9fa;
+}
+
+.resume-section p {
+  line-height: 1.8;
+}
+
+.profile-panel {
+  text-align: center;
+}
+
+.profile-panel h1 {
+  margin-bottom: 1rem;
+  font-size: clamp(3rem, 8vw, 6rem);
+  letter-spacing: 0.015em;
+}
+
+.about-eyebrow {
+  margin-bottom: 0.75rem;
+  color: #f1a28d;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.profile-panel .profile-role {
+  max-width: 52rem;
+  margin: 0 auto 1.25rem;
+  color: #e9ecef;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-weight: 800;
+  line-height: 1.7;
+}
+
+.profile-panel .profile-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.profile-action {
+  display: inline-flex;
+  min-height: 2.9rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1.1rem;
+  border: 1px solid transparent;
+  border-radius: 0.75rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition:
+    transform 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.profile-action:hover {
+  transform: translateY(-2px);
+}
+
+.profile-action--primary {
+  background: #bd5d38;
+  color: #fff;
+}
+
+.profile-action--primary:hover {
+  background: #a94c2b;
+  color: #fff;
+}
+
+.profile-action--secondary {
+  border-color: rgb(255 255 255 / 24%);
+  color: #fff;
+}
+
+.profile-action--secondary:hover {
+  border-color: #bd5d38;
+  color: #fff;
+}
+
+.profile-action--text {
+  padding-inline: 0.5rem;
+  color: #f1a28d;
+}
+
+.profile-action:focus-visible {
+  outline: 2px solid #f1a28d;
+  outline-offset: 3px;
+}
+
+.professional-summary {
+  max-width: 50rem;
+  margin: 0 auto 1.25rem;
+  color: #d3d7da;
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  line-height: 1.7;
+}
+
+.skill-keywords {
+  max-width: 58rem;
+}
+
+.skill-keywords p {
+  margin: 0 0 0.75rem;
+  color: #d3d7da;
+  line-height: 1.65;
+}
+
+.skill-keywords strong {
+  color: #f8f9fa;
+}
+
+#education .resume-entry {
+  position: relative;
+  margin-left: 0.5rem;
+  padding: 0 0 1.75rem 1.75rem;
+  border-left: 1px solid rgb(255 255 255 / 22%);
+}
+
+#education .resume-entry:last-child {
+  padding-bottom: 0;
+  border-left-color: transparent;
+}
+
+#education .resume-entry::before {
+  position: absolute;
+  top: 0.35rem;
+  left: -0.38rem;
+  width: 0.7rem;
+  height: 0.7rem;
+  border: 2px solid #1d2226;
+  border-radius: 50%;
+  background: #bd5d38;
+  content: '';
+}
+
+.resume-date {
+  padding-left: 1rem;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.resume-date .text-primary {
+  color: #f1a28d !important;
+}
+
+.experience-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  align-items: start;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 68rem;
+  margin-inline: auto;
+}
+
+.experience-card {
+  --mat-card-outlined-container-color: rgb(255 255 255 / 5%);
+  --mat-card-outlined-container-shape: 1rem;
+  --mat-card-outlined-outline-width: 1px;
+  --mat-card-outlined-outline-color: rgb(255 255 255 / 12%);
+  --mat-card-outlined-container-elevation: 0 0.75rem 2rem rgb(0 0 0 / 16%);
+  --mat-card-title-text-font: 'Saira Extra Condensed', sans-serif;
+  --mat-card-title-text-line-height: 1.2;
+  --mat-card-title-text-size: 1.5rem;
+  --mat-card-title-text-weight: 700;
+  --mat-card-subtitle-text-color: #f1a28d;
+  --mat-card-subtitle-text-font: inherit;
+  --mat-card-subtitle-text-size: 1rem;
+  --mat-card-subtitle-text-weight: 700;
+  --mat-card-subtitle-text-line-height: 1.4;
+
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 11.5rem;
+  padding: 1rem;
+}
+
+.experience-card details {
+  min-width: 0;
+}
+
+.experience-card__toggle {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.9rem;
+  list-style: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.experience-card__toggle::-webkit-details-marker {
+  display: none;
+}
+
+.company-logo-frame {
+  display: grid;
+  width: 100%;
+  height: 5.5rem;
+  place-items: center;
+  box-sizing: border-box;
+  padding: 0.85rem;
+  border: 1px solid rgb(0 0 0 / 8%);
+  border-radius: 0.75rem;
+  background: #fff;
+}
+
+.experience-card .company-logo {
+  display: block;
+  width: 100%;
+  height: 3.5rem;
+  object-position: center;
+  filter: grayscale(1) brightness(0.35);
+  object-fit: contain;
+}
+
+.experience-card__action {
+  display: flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid rgb(241 162 141 / 50%);
+  border-radius: 0.65rem;
+  color: #f1a28d;
+  font-weight: 700;
+  text-align: center;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.experience-card__toggle:hover .experience-card__action,
+.experience-card__toggle:focus-visible .experience-card__action {
+  border-color: #f1a28d;
+  background-color: rgb(189 93 56 / 12%);
+}
+
+.experience-card__toggle:focus-visible {
+  border-radius: 0.75rem;
+  outline: 2px solid #f1a28d;
+  outline-offset: 4px;
+}
+
+.experience-card__chevron {
+  width: 0.55rem;
+  height: 0.55rem;
+  flex: 0 0 auto;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-0.15rem) rotate(45deg);
+  transition: transform 180ms ease;
+}
+
+.experience-card details[open] .experience-card__chevron {
+  transform: translateY(0.15rem) rotate(225deg);
+}
+
+.experience-card .when-open,
+.experience-card details[open] .when-closed {
+  display: none;
+}
+
+.experience-card details[open] .when-open {
+  display: inline;
+}
+
+.experience-card__details {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgb(255 255 255 / 12%);
+}
+
+.experience-card__details [mat-card-title] {
+  display: block;
+  margin: 0;
+  color: #f8f9fa;
+  font-size: 1.3rem;
+  line-height: 1.2;
+  text-transform: none;
+  overflow-wrap: anywhere;
+}
+
+.experience-card__details [mat-card-subtitle] {
+  margin: 0.35rem 0 0.9rem;
+  color: #f1a28d;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.experience-card__body {
+  margin: 0;
+  padding: 0;
+}
+
+.experience-card__body p {
+  margin: 0;
+  color: #d3d7da;
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.experience-card .experience-date {
+  display: block;
+  margin-top: 0.9rem;
+  padding: 0;
+  color: #f1a28d;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+@media (max-width: 30rem) {
+  .experience-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .company-logo-frame {
+    height: 5.5rem;
+  }
+}
+
+.skill-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 10.5rem), 1fr));
+  grid-auto-rows: 5.5rem;
+  gap: 0.85rem;
+  width: 100%;
+  max-width: 58rem;
+  box-sizing: border-box;
+}
+
+.skill-card {
+  display: flex;
+  box-sizing: border-box;
+  height: 100%;
+  min-width: 0;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 0.85rem;
+  background: rgb(255 255 255 / 4%);
+  color: #f8f9fa;
+  font-weight: 700;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.skill-card:hover {
+  transform: translateY(-3px);
+  border-color: rgb(189 93 56 / 70%);
+  background: rgb(255 255 255 / 7%);
+}
+
+.skill-icon {
+  display: grid;
+  width: 3.5rem;
+  height: 3.5rem;
+  flex: 0 0 auto;
+  place-items: center;
+  box-sizing: border-box;
+  border-radius: 0.65rem;
+  border: 1px solid rgb(0 0 0 / 8%);
+  background: #fff;
+  overflow: hidden;
+}
+
+.skill-icon img {
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.skill-name {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  font-size: 0.95rem;
+  line-height: 1.25;
+}
+
+@media (max-width: 30rem) {
+  .skill-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .skill-card {
+    gap: 0.3rem;
+    padding: 0.375rem;
+  }
+
+  .skill-icon {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .skill-icon img {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+
+  .skill-name {
+    font-size: 0.75rem;
+    overflow-wrap: normal;
+  }
+}
+
+@media (max-width: 22rem) {
+  .skill-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .skill-card {
+    gap: 0.75rem;
+    padding: 0.75rem;
+  }
+
+  .skill-icon {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .skill-icon img {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  .skill-name {
+    font-size: 0.875rem;
+  }
+}
+
+.workflow-list li,
+.course-list li {
+  margin-bottom: 0.75rem;
+  line-height: 1.7;
+}
+
+.course-list {
+  columns: 2;
+  column-gap: 3rem;
+}
+
+.course-list li {
+  break-inside: avoid;
+}
+
+.interests-copy {
+  max-width: 64rem;
+}
+
+@media (max-width: 767.98px) {
+  body {
+    background-attachment: scroll;
+  }
+
+  section.resume-section {
+    width: calc(100% - 1rem);
+    min-height: auto;
+    padding: 1.5rem 0.25rem;
+  }
+
+  .resume-section .resume-section-content {
+    min-height: 0;
+    padding: 1.5rem;
+    border-radius: 1rem;
+  }
+
+  #about.resume-section {
+    min-height: calc(100svh - 4.5rem);
+  }
+
+  #about .resume-section-content {
+    min-height: 0;
+  }
+
+  .profile-panel h1 {
+    font-size: clamp(2.7rem, 13vw, 4.5rem);
+  }
+
+  .profile-panel .profile-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .profile-action {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .resume-date {
+    padding: 0.5rem 0 0;
+    text-align: left;
+    white-space: normal;
+  }
+
+  .course-list {
+    columns: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

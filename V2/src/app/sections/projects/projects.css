@@ -1,0 +1,56 @@
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  align-items: stretch;
+  gap: 1.25rem;
+}
+
+.project-card {
+  --mat-card-outlined-container-color: rgb(255 255 255 / 5%);
+  --mat-card-outlined-container-shape: 1rem;
+  --mat-card-outlined-outline-width: 1px;
+  --mat-card-outlined-outline-color: rgb(255 255 255 / 12%);
+  --mat-card-title-text-font: "Saira Extra Condensed", sans-serif;
+  --mat-card-title-text-line-height: 1.2;
+  --mat-card-title-text-size: 1.5rem;
+  --mat-card-title-text-weight: 700;
+  --mat-card-subtitle-text-color: #f1a28d;
+
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding: 1.4rem;
+}
+
+.project-card__header {
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+.project-card__header h3 {
+  margin: 0;
+  color: #f8f9fa;
+}
+
+.project-card mat-card-content {
+  flex: 1;
+  padding: 0;
+  color: #d3d7da;
+  line-height: 1.7;
+}
+
+.project-links {
+  margin-top: auto;
+  padding: 1.25rem 0 0;
+}
+
+.project-links a {
+  color: #f1a28d;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.project-links a:hover {
+  color: #ffbea9;
+  text-decoration: underline;
+}

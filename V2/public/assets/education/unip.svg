@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 96" role="img" aria-labelledby="title">
+  <title id="title">UNIP</title>
+  <rect width="180" height="96" rx="12" fill="#005b9a"/>
+  <circle cx="45" cy="48" r="28" fill="#fdb913"/>
+  <text x="112" y="62" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="800" text-anchor="middle">UNIP</text>
+</svg>

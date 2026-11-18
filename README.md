@@ -1,41 +1,32 @@
-# M1l1C0.github.io
+# Portfólio de Danilo Avanço
 
-Este é um README para o site pessoal de Danilo, disponível em: https://m1l1co.github.io/daniloavasc.github.io/.
+Site pessoal disponível em <https://m1l1co.github.io/daniloavasc.github.io/>.
 
----- Descrição ----
+## Versões
 
-Este site é uma página pessoal que foi criada por Danilo para compartilhar seu currículo profissional, seu trabalho, projetos e outras informações relevantes. O site foi desenvolvido utilizando tecnologias web como HTML, CSS e JavaScript, e é hospedado no GitHub Pages.
+- `V1/`: versão estática antiga, preservada como histórico e backup.
+- `V2/`: versão atual em Angular, publicada no GitHub Pages pelo workflow do repositório.
 
----- Conteúdo ----
+## Executar a V2 localmente
 
-O site é organizado em várias seções, cada uma fornecendo informações específicas sobre o currículo. Aqui estão algumas seções comuns encontradas no site:
+```bash
+cd V2
+npm ci
+npm start
+```
 
----- Sobre ----
+O servidor de desenvolvimento ficará disponível em `http://localhost:4200`.
 
-Nesta seção, Danilofornece uma breve introdução sobre si mesmo, sua formação acadêmica, experiência profissional e áreas de interesse. Isso ajuda os visitantes do site a terem uma ideia inicial sobre quem ele é e quais são suas especialidades.
+Para gerar o build local com o caminho-base do GitHub Pages:
 
----- Projetos ----
+```bash
+npm run build -- --base-href /daniloavasc.github.io/
+```
 
-Nesta seção, Danilo destaca alguns dos projetos em que trabalhou. Ele pode fornecer uma descrição detalhada de cada projeto, incluindo sua finalidade, tecnologias utilizadas, desafios enfrentados e resultados alcançados. Também podem ser incluídos links para os repositórios de código-fonte ou demonstrações dos projetos.
+O build de produção é publicado automaticamente no GitHub Pages após alterações
+na branch `main`. A aplicação fica em `src/app`; a navegação está em
+`src/app/layout/site-navigation` e as seções do currículo em `src/app/sections`.
 
----- Experiência Profissional ----
-
-Aqui, Danilo pode listar suas experiências profissionais anteriores e atuais. Ele pode mencionar as empresas em que trabalhou, as posições que ocupou, as responsabilidades desempenhadas e os projetos em que esteve envolvido. Isso ajuda a demonstrar seu histórico profissional e expertise.
-
---- Habilidades ---
-
-Nesta seção lista suas habilidades técnicas e competências relevantes para sua área de atuação. Isso pode incluir linguagens de programação, frameworks, ferramentas, metodologias de desenvolvimento, entre outros. Essa lista de habilidades ajuda a dar uma visão geral das capacidades técnicas de Danilo Avanço.
-
----- Contato ----
-
-Na seção de contato pode fornecer informações para que os visitantes do site possam entrar em contato com ele. Isso pode incluir endereço de e-mail, links para perfis de redes sociais ou até mesmo um formulário de contato.
-
----- Contribuições ----
-
-Este site é um projeto pessoal de Danilo, destinado a fornecer informações sobre si mesmo. Portanto, não são aceitas contribuições diretas para o conteúdo do site. No entanto, se você encontrar algum problema técnico, como erros de exibição ou links quebrados, é possível entrar em contato com Danilo para relatar o problema.
-
----- Executando o site localmente ----
-
-Se você deseja executar uma cópia local deste site em seu próprio ambiente de desenvolvimento, siga as etapas abaixo:
-
-Faça um clone do repositório: git clone https://github.com/m1l1co/daniloavasc.github.io.git Navegue até o diretório do projeto: cd daniloavasc.github.io Abra o arquivo `index.html
+Os logos das empresas ficam em `V2/public/assets/companies`. Os logos Vidalink
+e DXC foram obtidos nos sites oficiais; o logo histórico da Bemis veio do
+[Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Bemis_Company_logo.svg).

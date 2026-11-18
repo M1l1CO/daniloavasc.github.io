@@ -1,0 +1,108 @@
+.education-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  align-items: stretch;
+  gap: 1.25rem;
+}
+
+.education-card {
+  --mat-card-outlined-container-color: rgb(255 255 255 / 5%);
+  --mat-card-outlined-container-shape: 1rem;
+  --mat-card-outlined-outline-width: 1px;
+  --mat-card-outlined-outline-color: rgb(255 255 255 / 12%);
+  --mat-card-outlined-container-elevation: 0 0.75rem 2rem rgb(0 0 0 / 16%);
+  --mat-card-title-text-font: 'Saira Extra Condensed', sans-serif;
+  --mat-card-title-text-line-height: 1.2;
+  --mat-card-title-text-size: 1.5rem;
+  --mat-card-title-text-weight: 700;
+  --mat-card-subtitle-text-color: #f1a28d;
+  --mat-card-subtitle-text-font: inherit;
+  --mat-card-subtitle-text-size: 1rem;
+  --mat-card-subtitle-text-weight: 700;
+  --mat-card-subtitle-text-line-height: 1.4;
+
+  display: flex;
+  min-width: 0;
+  min-height: 100%;
+  flex-direction: column;
+  padding: 1.4rem;
+}
+
+.education-card__header {
+  display: flex;
+  min-width: 0;
+  min-height: 6.25rem;
+  align-items: center;
+  gap: 1.1rem;
+  margin-bottom: 1.4rem;
+  padding: 0;
+}
+
+.education-card__school {
+  min-width: 0;
+  flex: 1 1 0;
+}
+
+.education-card .institution-logo {
+  width: 6rem;
+  height: 5rem;
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 0.55rem;
+  border-radius: 0.75rem;
+  background-color: #fff;
+  object-fit: contain;
+}
+
+.education-card h3[mat-card-title] {
+  margin: 0;
+  color: #f8f9fa;
+  text-transform: none;
+}
+
+.education-card .education-card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 0;
+  color: #d3d7da;
+}
+
+.education-card__body p {
+  margin-bottom: 1rem;
+}
+
+.education-card .education-date {
+  margin-top: auto;
+  padding: 1rem 0 0;
+  color: #f1a28d;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+@media (max-width: 28rem) {
+  .education-card__header {
+    gap: 0.75rem;
+  }
+
+  .education-card .institution-logo {
+    width: 5.5rem;
+    height: 4.5rem;
+  }
+}
+
+@media (max-width: 22rem) {
+  .education-card .institution-logo {
+    width: 4.5rem;
+    height: 3.75rem;
+  }
+
+  .education-card__header {
+    gap: 0.5rem;
+  }
+
+  .education-card__school [mat-card-subtitle] {
+    font-size: 0.8125rem;
+    line-height: 1.35;
+  }
+}

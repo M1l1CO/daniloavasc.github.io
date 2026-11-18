@@ -1,0 +1,72 @@
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  gap: 1rem;
+}
+
+.course-card {
+  --mat-card-outlined-container-color: rgb(255 255 255 / 5%);
+  --mat-card-outlined-container-shape: 0.75rem;
+  --mat-card-outlined-outline-width: 1px;
+  --mat-card-outlined-outline-color: rgb(255 255 255 / 12%);
+  --mat-card-title-text-font: var(--bs-body-font-family, sans-serif);
+  --mat-card-title-text-line-height: 1.4;
+  --mat-card-title-text-size: 1rem;
+  --mat-card-title-text-weight: 700;
+  --mat-card-subtitle-text-color: #f1a28d;
+  --mat-card-subtitle-text-size: 0.9rem;
+  --mat-card-subtitle-text-weight: 700;
+
+  padding: 1rem;
+}
+
+.course-card__header {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0;
+}
+
+.course-card__header > div {
+  min-width: 0;
+}
+
+.course-card h3 {
+  margin: 0;
+  color: #f8f9fa;
+  line-height: 1.4;
+  text-transform: none;
+}
+
+.course-card p {
+  margin: 0.35rem 0 0;
+  line-height: 1.35;
+}
+
+.school-logo {
+  width: 3.75rem;
+  height: 3.75rem;
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 0.35rem;
+  border-radius: 0.5rem;
+  background: #fff;
+  object-fit: contain;
+}
+
+.school-logo[src*='/alura.svg'] {
+  padding: 0.65rem;
+  background-color: #052fd3;
+}
+
+@media (max-width: 30rem) {
+  .course-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .school-logo {
+    width: 3.25rem;
+    height: 3.25rem;
+  }
+}
