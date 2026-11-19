@@ -29,69 +29,107 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarResponsive" [class.show]="menuOpen">
+    <button
+      class="theme-toggle"
+      type="button"
+      (click)="toggleTheme()"
+      [attr.aria-label]="isLightTheme ? 'Ativar tema escuro' : 'Ativar tema claro'"
+      [attr.aria-pressed]="isLightTheme"
+      title="Alternar tema"
+    >
+      <i [class]="isLightTheme ? 'fas fa-moon' : 'fas fa-sun'" aria-hidden="true"></i>
+    </button>
     <ul class="navbar-nav">
       <li class="nav-item">
         <a
           class="nav-link js-scroll-trigger"
           href="#about"
           [attr.aria-current]="activeSection === 'about' ? 'location' : null"
+          aria-label="Sobre"
+          title="Sobre"
           (click)="closeMenu('about')"
-          >Sobre</a
         >
+          <i class="fas fa-user" aria-hidden="true"></i>
+          <span class="nav-link-label">Sobre</span>
+        </a>
       </li>
       <li class="nav-item">
         <a
           class="nav-link js-scroll-trigger"
           href="#experience"
           [attr.aria-current]="activeSection === 'experience' ? 'location' : null"
+          aria-label="Experiência"
+          title="Experiência"
           (click)="closeMenu('experience')"
-          >Experiência</a
         >
+          <i class="fas fa-briefcase" aria-hidden="true"></i>
+          <span class="nav-link-label">Experiência</span>
+        </a>
       </li>
       <li class="nav-item">
         <a
           class="nav-link js-scroll-trigger"
           href="#education"
           [attr.aria-current]="activeSection === 'education' ? 'location' : null"
+          aria-label="Educação"
+          title="Educação"
           (click)="closeMenu('education')"
-          >Educação</a
         >
+          <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+          <span class="nav-link-label">Educação</span>
+        </a>
       </li>
       <li class="nav-item">
         <a
           class="nav-link js-scroll-trigger"
           href="#skills"
           [attr.aria-current]="activeSection === 'skills' ? 'location' : null"
+          aria-label="Habilidades"
+          title="Habilidades"
           (click)="closeMenu('skills')"
-          >Habilidades</a
         >
+          <i class="fas fa-code" aria-hidden="true"></i>
+          <span class="nav-link-label">Habilidades</span>
+        </a>
       </li>
       <li class="nav-item">
         <a
           class="nav-link js-scroll-trigger"
           href="#awards"
           [attr.aria-current]="activeSection === 'awards' ? 'location' : null"
+          aria-label="Cursos"
+          title="Cursos"
           (click)="closeMenu('awards')"
-          >Cursos</a
         >
+          <i class="fas fa-award" aria-hidden="true"></i>
+          <span class="nav-link-label">Cursos</span>
+        </a>
       </li>
       <li class="nav-item">
         <a
           class="nav-link js-scroll-trigger"
           href="#recommendations"
           [attr.aria-current]="activeSection === 'recommendations' ? 'location' : null"
+          aria-label="Recomendações"
+          title="Recomendações"
           (click)="closeMenu('recommendations')"
-          >Recomendações</a
         >
+          <i class="fas fa-comments" aria-hidden="true"></i>
+          <span class="nav-link-label">Recomendações</span>
+        </a>
       </li>
       <li class="nav-item">
         <a
           class="nav-link js-scroll-trigger"
           href="#interests"
           [attr.aria-current]="activeSection === 'interests' ? 'location' : null"
+          aria-label="Interesses"
+          title="Interesses"
           (click)="closeMenu('interests')"
-          >Interesses</a
         >
+          <i class="fas fa-heart" aria-hidden="true"></i>
+          <span class="nav-link-label">Interesses</span>
+        </a>
       </li>
     </ul>
   </div>

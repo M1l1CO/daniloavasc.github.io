@@ -47,7 +47,12 @@
 }
 
 .recommendation-card__toggle {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'header chevron'
+    'preview preview';
+  row-gap: 0.8rem;
   align-items: center;
   gap: 1rem;
   padding: 0.2rem;
@@ -67,6 +72,7 @@
 
 .recommendation-card__header {
   display: flex;
+  grid-area: header;
   min-width: 0;
   flex: 1;
   align-items: center;
@@ -112,7 +118,24 @@
   color: #d3d7da;
 }
 
+.recommendation-preview {
+  display: -webkit-box;
+  grid-area: preview;
+  margin: 0;
+  overflow: hidden;
+  color: #d3d7da;
+  line-height: 1.65;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+}
+
+.recommendation-disclosure[open] .recommendation-preview {
+  display: none;
+}
+
 .recommendation-chevron {
+  grid-area: chevron;
   width: 0.55rem;
   height: 0.55rem;
   flex: 0 0 auto;

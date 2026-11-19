@@ -57,11 +57,16 @@ export class SiteNavigation implements AfterViewInit, OnDestroy {
   protected menuOpen = false;
   protected activeSection: NavigationSection = 'about';
   protected navbarHidden = false;
+  protected isLightTheme = false;
 
   ngAfterViewInit(): void {
     if (typeof document === 'undefined') {
       return;
     }
+
+    const savedTheme = window.localStorage.getItem('portfolio-theme');
+    this.isLightTheme = savedTheme === 'light';
+    this.applyTheme();
 
     this.zone.runOutsideAngular(() => {
       this.activityEvents.forEach((eventName) =>
@@ -136,6 +141,24 @@ export class SiteNavigation implements AfterViewInit, OnDestroy {
     if (section) {
       this.activeSection = section;
     }
+  }
+
+  toggleTheme(): void {
+    this.isLightTheme = !this.isLightTheme;
+    this.applyTheme();
+  }
+
+  private applyTheme(): void {
+    if (typeof document === 'undefined') {
+      return;
+    }
+
+    document.body.classList.toggle('light-theme', this.isLightTheme);
+    document.documentElement.style.colorScheme = this.isLightTheme ? 'light' : 'dark';
+    window.localStorage.setItem('portfolio-theme', this.isLightTheme ? 'light' : 'dark');
+
+    const themeColor = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
+    themeColor?.setAttribute('content', this.isLightTheme ? '#f4f6f8' : '#14181c');
   }
 
   private scheduleAutoHide(): void {

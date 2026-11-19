@@ -80,6 +80,9 @@ describe('App', () => {
       '#recommendations .recommendation-disclosure',
     );
     expect(disclosures).toHaveLength(5);
+    expect(
+      fixture.nativeElement.querySelectorAll('#recommendations .recommendation-preview'),
+    ).toHaveLength(5);
     expect(Array.from(disclosures).every((disclosure) => !disclosure.open)).toBe(true);
     disclosures[0].querySelector('summary')?.click();
     expect(disclosures[0].open).toBe(true);
@@ -112,10 +115,7 @@ describe('App', () => {
     const cards = compiled.querySelectorAll('#experience .experience-card');
 
     expect(cards).toHaveLength(6);
-    expect(compiled.querySelectorAll('.experience-timeline .experience-card')).toHaveLength(3);
-    expect(compiled.querySelectorAll('.experience-grid--previous .experience-card')).toHaveLength(
-      3,
-    );
+    expect(compiled.querySelectorAll('.experience-timeline .experience-card')).toHaveLength(6);
     expect(cards[0].classList.contains('experience-card--current')).toBe(true);
     expect(cards[0].querySelector('.experience-card__chevron')).toBeTruthy();
     expect(cards[0].querySelector('.company-name')?.firstChild?.textContent?.trim()).toBe(
@@ -279,5 +279,29 @@ describe('App', () => {
         'aria-current',
       ),
     ).toBe('location');
+  });
+
+  it('should switch between dark and light themes', () => {
+    window.localStorage.removeItem('portfolio-theme');
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    const toggle = compiled.querySelector<HTMLButtonElement>('.theme-toggle');
+
+    toggle?.click();
+    fixture.detectChanges();
+
+    expect(document.body.classList.contains('light-theme')).toBe(true);
+    expect(toggle?.getAttribute('aria-pressed')).toBe('true');
+    expect(window.localStorage.getItem('portfolio-theme')).toBe('light');
+
+    toggle?.click();
+    fixture.detectChanges();
+
+    expect(document.body.classList.contains('light-theme')).toBe(false);
+    expect(toggle?.getAttribute('aria-pressed')).toBe('false');
+    expect(window.localStorage.getItem('portfolio-theme')).toBe('dark');
+    document.body.classList.remove('light-theme');
   });
 });
