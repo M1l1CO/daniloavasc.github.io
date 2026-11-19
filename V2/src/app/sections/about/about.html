@@ -9,8 +9,8 @@
         class="profile-cover"
         [class.profile-cover--rotating]="coverRotationScheduled"
         role="region"
-        aria-roledescription="carrossel"
-        aria-label="Destaques da trajetória profissional em finanças e tecnologia"
+        [attr.aria-roledescription]="'carrossel' | translate"
+        [attr.aria-label]="'Destaques da trajetória profissional em finanças e tecnologia' | translate"
         [style.--cover-pointer-x]="coverPointerX + '%'"
         [style.--cover-pointer-y]="coverPointerY + '%'"
         (pointermove)="trackCoverPointer($event)"
@@ -26,21 +26,21 @@
               class="profile-cover__slide"
               [class.profile-cover__slide--active]="activeCoverSlide === index"
               [attr.aria-hidden]="activeCoverSlide !== index"
-              aria-roledescription="slide"
+              [attr.aria-roledescription]="'slide' | translate"
               role="group"
-              [attr.aria-label]="'Destaque ' + (index + 1) + ' de ' + coverSlides.length"
+              [attr.aria-label]="coverSlideLabel(index)"
             >
               <div class="profile-cover__slide-copy">
                 <h2>
-                  {{ slide.before }}<span class="profile-cover__highlight">{{ slide.highlight }}</span>{{ slide.after }}
+                  {{ slide.before | translate }}<span class="profile-cover__highlight">{{ slide.highlight | translate }}</span>{{ slide.after | translate }}
                 </h2>
-                <p class="profile-cover__description">{{ slide.description }}</p>
+                <p class="profile-cover__description">{{ slide.description | translate }}</p>
               </div>
             </article>
           }
         </div>
-        <div class="profile-cover__controls" role="group" aria-label="Navegação do carrossel">
-          <button type="button" aria-label="Destaque anterior" (click)="previousCoverSlide()">
+        <div class="profile-cover__controls" role="group" [attr.aria-label]="'Navegação do carrossel' | translate">
+          <button type="button" [attr.aria-label]="'Destaque anterior' | translate" (click)="previousCoverSlide()">
             <i class="fas fa-chevron-left" aria-hidden="true"></i>
           </button>
           @for (slide of coverSlides; track slide.highlight; let index = $index) {
@@ -48,18 +48,18 @@
               class="profile-cover__indicator"
               [class.profile-cover__indicator--active]="activeCoverSlide === index"
               type="button"
-              [attr.aria-label]="'Mostrar destaque ' + (index + 1)"
+              [attr.aria-label]="coverSlideLabel(index)"
               [attr.aria-current]="activeCoverSlide === index ? 'true' : null"
               (click)="selectCoverSlide(index)"
             ></button>
           }
-          <button type="button" aria-label="Próximo destaque" (click)="nextCoverSlide()">
+          <button type="button" [attr.aria-label]="'Próximo destaque' | translate" (click)="nextCoverSlide()">
             <i class="fas fa-chevron-right" aria-hidden="true"></i>
           </button>
           @if (!prefersReducedMotion) {
             <button
               type="button"
-              [attr.aria-label]="coverRotationEnabled ? 'Pausar carrossel' : 'Reproduzir carrossel'"
+              [attr.aria-label]="(coverRotationEnabled ? 'Pausar carrossel' : 'Reproduzir carrossel') | translate"
               [attr.aria-pressed]="!coverRotationEnabled"
               (click)="toggleCoverRotation()"
             >
@@ -78,9 +78,9 @@
         class="profile-avatar"
         [class.profile-avatar--dragging]="isDragging"
         src="Img/Danilo1.jpg"
-        alt="Foto de perfil de Danilo Vasconcellos"
+        [alt]="'Foto de perfil de Danilo Vasconcellos' | translate"
         role="slider"
-        aria-label="Ajustar posição horizontal da foto de perfil"
+        [attr.aria-label]="'Ajustar posição horizontal da foto de perfil' | translate"
         [attr.aria-valuemin]="minProfilePosition"
         [attr.aria-valuemax]="maxProfilePosition"
         [attr.aria-valuenow]="profilePosition"
@@ -92,36 +92,30 @@
         (pointercancel)="endDrag($event)"
         (keydown)="adjustPosition($event)"
       />
-      <div class="profile-avatar-controls" role="group" aria-label="Controles da foto de perfil">
+      <div class="profile-avatar-controls" role="group" [attr.aria-label]="'Controles da foto de perfil' | translate">
         <span class="profile-avatar-move-indicator" aria-hidden="true">
           <i class="fas fa-arrows-left-right"></i>
         </span>
         <button
           class="profile-avatar-reset"
           type="button"
-          aria-label="Redefinir posição da foto"
+          [attr.aria-label]="'Redefinir posição da foto' | translate"
           (click)="resetProfilePosition()"
         >
           <i class="fas fa-rotate-left" aria-hidden="true"></i>
         </button>
       </div>
       <div #profileCopy class="profile-copy">
-        <p class="about-eyebrow">Perfil profissional</p>
+        <p class="about-eyebrow">{{ 'Perfil profissional' | translate }}</p>
         <h1 class="text-center text-white">Danilo <span class="text-danger">Vasconcellos</span></h1>
-        <p class="profile-role">
-          Engenheiro de Software Sênior | C#/.NET | Angular | Microsserviços
-        </p>
+        <p class="profile-role">{{ 'Engenheiro de Software Sênior | C#/.NET | Angular | Microsserviços' | translate }}</p>
         <p class="profile-location">
           <i class="fas fa-location-dot" aria-hidden="true"></i>
-          São Paulo, Brasil · Híbrido
+          {{ 'São Paulo, Brasil · Híbrido' | translate }}
         </p>
-        <p class="professional-summary">
-          Engenheiro de software com experiência em aplicações financeiras, microsserviços e
-          sistemas de prevenção a crimes e fraudes. Atuação com C#/.NET, Angular, cloud, mensageria,
-          bancos de dados distribuídos e práticas de qualidade, observabilidade e entrega contínua.
-        </p>
+        <p class="professional-summary">{{ 'Engenheiro de software com experiência em aplicações financeiras, microsserviços e sistemas de prevenção a crimes e fraudes. Atuação com C#/.NET, Angular, cloud, mensageria, bancos de dados distribuídos e práticas de qualidade, observabilidade e entrega contínua.' | translate }}</p>
         <div class="profile-actions">
-          <div class="profile-contact-links" role="group" aria-label="Contatos e redes sociais">
+          <div class="profile-contact-links" role="group" [attr.aria-label]="'Contatos e redes sociais' | translate">
             <a
               class="profile-action profile-action--linkedin"
               href="https://www.linkedin.com/in/daniloavasc/"
@@ -143,7 +137,7 @@
             <a
               class="profile-action profile-action--email"
               href="mailto:daniloaraujo.vasconcellos@gmail.com?subject=Contato%20pelo%20portf%C3%B3lio&body=Ol%C3%A1%2C%20Danilo!%20Gostaria%20de%20conversar%20sobre%20seus%20servi%C3%A7os."
-              aria-label="Enviar e-mail para Danilo"
+              [attr.aria-label]="'Enviar e-mail para Danilo' | translate"
             >
               <i class="fas fa-envelope" aria-hidden="true"></i>
             </a>
@@ -160,11 +154,11 @@
           <button
             class="profile-action profile-action--resume"
             type="button"
-            title="Gera o currículo na janela de impressão"
+            [title]="'Gera o currículo na janela de impressão' | translate"
             (click)="downloadResume()"
           >
             <i class="fas fa-file-pdf" aria-hidden="true"></i>
-            Gerar currículo em PDF
+            {{ 'Gerar currículo em PDF' | translate }}
           </button>
         </div>
       </div>

@@ -1,23 +1,20 @@
 <div class="container-fluid rounded">
   <section class="resume-section" id="skills">
     <div class="resume-section-content">
-      <h2 class="mb-4 text-danger">Habilidades</h2>
-      <p class="skill-intro">
-        Uma visão interativa das tecnologias e práticas que se conectam na minha atuação em software
-        financeiro. Selecione um ponto para explorar.
-      </p>
+      <h2 class="mb-4 text-danger">{{ 'Habilidades' | translate }}</h2>
+      <p class="skill-intro">{{ 'Uma visão interativa das tecnologias e práticas que se conectam na minha atuação em software financeiro. Selecione um ponto para explorar.' | translate }}</p>
 
-      <div class="skill-map" role="group" aria-label="Mapa interativo de habilidades">
+      <div class="skill-map" role="group" [attr.aria-label]="'Mapa interativo de habilidades' | translate">
         <div class="skill-map__core">
-          <strong>Engenharia de software</strong>
-          <span>Serviços financeiros</span>
+          <strong>{{ 'Engenharia de software' | translate }}</strong>
+          <span>{{ 'Serviços financeiros' | translate }}</span>
         </div>
 
         <div class="skill-map__branches">
           @for (group of groups; track group.id) {
             <section class="skill-cluster" [attr.aria-labelledby]="'skill-group-' + group.id">
               <h3 class="skill-cluster__title" [id]="'skill-group-' + group.id">
-                {{ group.title }}
+                {{ group.title | translate }}
               </h3>
               <ul class="skill-node-list">
                 @for (skill of group.skills; track skill.id) {
@@ -25,7 +22,7 @@
                     <button
                       class="skill-card"
                       [class.skill-card--selected]="selectedSkillId === skill.id"
-                      [attr.aria-label]="skill.name + ' — ' + group.title"
+                      [attr.aria-label]="('Habilidade' | translate) + ': ' + skill.name + ' — ' + (group.title | translate)"
                       [attr.aria-pressed]="selectedSkillId === skill.id"
                       type="button"
                       (click)="selectSkill(skill.id)"
@@ -50,30 +47,30 @@
       <div class="skill-insight" aria-live="polite">
         @if (selectedSkill; as skill) {
           <div class="skill-insight__copy">
-            <p class="skill-insight__group">{{ selectedGroup?.title }}</p>
+            <p class="skill-insight__group">{{ selectedGroup?.title | translate }}</p>
             <h3>{{ skill.name }}</h3>
-            <p>{{ skill.summary }}</p>
+            <p>{{ skill.summary | translate }}</p>
           </div>
         }
       </div>
 
       <details class="skill-extra-details">
-        <summary>Outras competências e ferramentas</summary>
-        <div class="skill-keywords" aria-label="Competências técnicas adicionais">
+        <summary>{{ 'Outras competências e ferramentas' | translate }}</summary>
+        <div class="skill-keywords" [attr.aria-label]="'Competências técnicas adicionais' | translate">
           <p>
-            <strong>Desenvolvimento:</strong> .NET, APIs REST, microsserviços, testes unitários e de
+            <strong>{{ 'Desenvolvimento:' | translate }}</strong> .NET, APIs REST, microsserviços, testes unitários e de
             carga.
           </p>
           <p>
-            <strong>Cloud e dados:</strong> AWS (EC2 e RDS), Athena, SQL, PL/SQL, Oracle, PostgreSQL,
+            <strong>{{ 'Cloud e dados:' | translate }}</strong> AWS (EC2 e RDS), Athena, SQL, PL/SQL, Oracle, PostgreSQL,
             MongoDB e Google Cloud Platform (GCP).
           </p>
           <p>
-            <strong>Engenharia e operações:</strong> CI/CD, Git, Azure Repos, GitLab, GitHub, ITIL,
+            <strong>{{ 'Engenharia e operações:' | translate }}</strong> CI/CD, Git, Azure Repos, GitLab, GitHub, ITIL,
             Jira, ServiceNow e Remedy.
           </p>
           <p>
-            <strong>Ferramentas:</strong> Postman, Microsoft Visual Studio e Visual Studio Code.
+            <strong>{{ 'Ferramentas:' | translate }}</strong> Postman, Microsoft Visual Studio e Visual Studio Code.
           </p>
         </div>
       </details>

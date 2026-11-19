@@ -4,10 +4,10 @@
   [attr.aria-hidden]="navbarHidden ? 'true' : null"
   [attr.inert]="navbarHidden ? '' : null"
   id="sideNav"
-  aria-label="Navegação principal"
+  [attr.aria-label]="'Navegação principal' | translate"
 >
   <a class="navbar-brand js-scroll-trigger" href="#about" (click)="closeMenu('about')">
-    <span class="d-block d-lg-none text-danger">HOME</span>
+    <span class="d-block d-lg-none text-danger">{{ 'HOME' | translate }}</span>
     <span class="d-none d-lg-block"
       ><img
         class="img-fluid img-profile rounded-circle border-danger border-3 mx-auto mb-5"
@@ -23,19 +23,24 @@
     (click)="toggleMenu()"
     aria-controls="navbarResponsive"
     [attr.aria-expanded]="menuOpen"
-    aria-label="Alternar navegação"
+    [attr.aria-label]="'Alternar navegação' | translate"
   >
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarResponsive" [class.show]="menuOpen">
+    <div class="language-controls" role="group" [attr.aria-label]="'Selecionar idioma' | translate">
+      <button type="button" [attr.aria-pressed]="i18n.language() === 'pt'" (click)="setLanguage('pt')">PT</button>
+      <button type="button" [attr.aria-pressed]="i18n.language() === 'en'" (click)="setLanguage('en')">EN</button>
+      <button type="button" [attr.aria-pressed]="i18n.language() === 'es'" (click)="setLanguage('es')">ES</button>
+    </div>
     <button
       class="theme-toggle"
       type="button"
       (click)="toggleTheme()"
-      [attr.aria-label]="isLightTheme ? 'Ativar tema escuro' : 'Ativar tema claro'"
+      [attr.aria-label]="(isLightTheme ? 'Ativar tema escuro' : 'Ativar tema claro') | translate"
       [attr.aria-pressed]="isLightTheme"
-      title="Alternar tema"
+      [title]="'Alternar tema' | translate"
     >
       <i [class]="isLightTheme ? 'fas fa-moon' : 'fas fa-sun'" aria-hidden="true"></i>
     </button>
@@ -45,12 +50,12 @@
           class="nav-link js-scroll-trigger"
           href="#about"
           [attr.aria-current]="activeSection === 'about' ? 'location' : null"
-          aria-label="Sobre"
-          title="Sobre"
+          [attr.aria-label]="'Sobre' | translate"
+          [title]="'Sobre' | translate"
           (click)="closeMenu('about')"
         >
           <i class="fas fa-user" aria-hidden="true"></i>
-          <span class="nav-link-label">Sobre</span>
+          <span class="nav-link-label">{{ 'Sobre' | translate }}</span>
         </a>
       </li>
       <li class="nav-item">
@@ -58,12 +63,12 @@
           class="nav-link js-scroll-trigger"
           href="#experience"
           [attr.aria-current]="activeSection === 'experience' ? 'location' : null"
-          aria-label="Experiência"
-          title="Experiência"
+          [attr.aria-label]="'Experiência' | translate"
+          [title]="'Experiência' | translate"
           (click)="closeMenu('experience')"
         >
           <i class="fas fa-briefcase" aria-hidden="true"></i>
-          <span class="nav-link-label">Experiência</span>
+          <span class="nav-link-label">{{ 'Experiência' | translate }}</span>
         </a>
       </li>
       <li class="nav-item">
@@ -71,12 +76,12 @@
           class="nav-link js-scroll-trigger"
           href="#education"
           [attr.aria-current]="activeSection === 'education' ? 'location' : null"
-          aria-label="Educação"
-          title="Educação"
+          [attr.aria-label]="'Educação' | translate"
+          [title]="'Educação' | translate"
           (click)="closeMenu('education')"
         >
           <i class="fas fa-graduation-cap" aria-hidden="true"></i>
-          <span class="nav-link-label">Educação</span>
+          <span class="nav-link-label">{{ 'Educação' | translate }}</span>
         </a>
       </li>
       <li class="nav-item">
@@ -84,12 +89,12 @@
           class="nav-link js-scroll-trigger"
           href="#skills"
           [attr.aria-current]="activeSection === 'skills' ? 'location' : null"
-          aria-label="Habilidades"
-          title="Habilidades"
+          [attr.aria-label]="'Habilidades' | translate"
+          [title]="'Habilidades' | translate"
           (click)="closeMenu('skills')"
         >
           <i class="fas fa-code" aria-hidden="true"></i>
-          <span class="nav-link-label">Habilidades</span>
+          <span class="nav-link-label">{{ 'Habilidades' | translate }}</span>
         </a>
       </li>
       <li class="nav-item">
@@ -97,12 +102,12 @@
           class="nav-link js-scroll-trigger"
           href="#awards"
           [attr.aria-current]="activeSection === 'awards' ? 'location' : null"
-          aria-label="Cursos"
-          title="Cursos"
+          [attr.aria-label]="'Cursos' | translate"
+          [title]="'Cursos' | translate"
           (click)="closeMenu('awards')"
         >
           <i class="fas fa-award" aria-hidden="true"></i>
-          <span class="nav-link-label">Cursos</span>
+          <span class="nav-link-label">{{ 'Cursos' | translate }}</span>
         </a>
       </li>
       <li class="nav-item">
@@ -110,12 +115,12 @@
           class="nav-link js-scroll-trigger"
           href="#recommendations"
           [attr.aria-current]="activeSection === 'recommendations' ? 'location' : null"
-          aria-label="Recomendações"
-          title="Recomendações"
+          [attr.aria-label]="'Recomendações' | translate"
+          [title]="'Recomendações' | translate"
           (click)="closeMenu('recommendations')"
         >
           <i class="fas fa-comments" aria-hidden="true"></i>
-          <span class="nav-link-label">Recomendações</span>
+          <span class="nav-link-label">{{ 'Recomendações' | translate }}</span>
         </a>
       </li>
       <li class="nav-item">
@@ -123,12 +128,12 @@
           class="nav-link js-scroll-trigger"
           href="#interests"
           [attr.aria-current]="activeSection === 'interests' ? 'location' : null"
-          aria-label="Interesses"
-          title="Interesses"
+          [attr.aria-label]="'Interesses' | translate"
+          [title]="'Interesses' | translate"
           (click)="closeMenu('interests')"
         >
           <i class="fas fa-heart" aria-hidden="true"></i>
-          <span class="nav-link-label">Interesses</span>
+          <span class="nav-link-label">{{ 'Interesses' | translate }}</span>
         </a>
       </li>
     </ul>

@@ -28,6 +28,34 @@
     transform 180ms ease;
 }
 
+.language-controls {
+  display: flex;
+  gap: 0.2rem;
+  margin-right: 0.45rem;
+}
+
+.language-controls button {
+  min-width: 2rem;
+  min-height: 2rem;
+  border: 1px solid rgb(241 162 141 / 45%);
+  border-radius: 4px;
+  background: transparent;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.language-controls button[aria-pressed='true'] {
+  background: #bd5d38;
+  color: #fff;
+}
+
+.language-controls button:focus-visible {
+  outline: 2px solid #f1a28d;
+  outline-offset: 2px;
+}
+
 .theme-toggle:hover {
   background: #bd5d38;
   color: #fff;

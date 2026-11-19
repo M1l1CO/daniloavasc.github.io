@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TranslatePipe } from '../../shared/i18n/translate.pipe';
 
 interface SkillNode {
   id: string;
@@ -15,7 +16,7 @@ interface SkillGroup {
 }
 
 @Component({
-  imports: [],
+  imports: [TranslatePipe],
   selector: 'app-skills',
   styleUrl: './skills.css',
   templateUrl: './skills.html',

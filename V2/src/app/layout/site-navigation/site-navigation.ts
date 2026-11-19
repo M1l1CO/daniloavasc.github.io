@@ -6,6 +6,8 @@ import {
   NgZone,
   OnDestroy,
 } from '@angular/core';
+import { Language, LanguageService } from '../../shared/i18n/language.service';
+import { TranslatePipe } from '../../shared/i18n/translate.pipe';
 
 type NavigationSection =
   | 'about'
@@ -17,12 +19,13 @@ type NavigationSection =
   | 'interests';
 
 @Component({
-  imports: [],
+  imports: [TranslatePipe],
   selector: 'app-site-navigation',
   styleUrl: './site-navigation.css',
   templateUrl: './site-navigation.html',
 })
 export class SiteNavigation implements AfterViewInit, OnDestroy {
+  protected readonly i18n = inject(LanguageService);
   private readonly zone = inject(NgZone);
   private readonly changeDetectorRef = inject(ChangeDetectorRef);
   private observer: IntersectionObserver | undefined;
@@ -146,6 +149,10 @@ export class SiteNavigation implements AfterViewInit, OnDestroy {
   toggleTheme(): void {
     this.isLightTheme = !this.isLightTheme;
     this.applyTheme();
+  }
+
+  setLanguage(language: Language): void {
+    this.i18n.setLanguage(language);
   }
 
   private applyTheme(): void {

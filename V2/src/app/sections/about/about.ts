@@ -3,17 +3,21 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  inject,
   OnDestroy,
   ViewChild,
 } from '@angular/core';
+import { LanguageService } from '../../shared/i18n/language.service';
+import { TranslatePipe } from '../../shared/i18n/translate.pipe';
 
 @Component({
-  imports: [],
+  imports: [TranslatePipe],
   selector: 'app-about',
   styleUrl: './about.css',
   templateUrl: './about.html',
 })
 export class About implements OnDestroy {
+  private readonly i18n = inject(LanguageService);
   @ViewChild('profileAvatar') private profileAvatar?: ElementRef<HTMLImageElement>;
   @ViewChild('profileCopy') private profileCopy?: ElementRef<HTMLElement>;
 
@@ -106,10 +110,14 @@ export class About implements OnDestroy {
 
   get profilePositionText(): string {
     if (Math.abs(this.profilePosition - this.initialProfilePosition) < 0.1) {
-      return 'Alinhado com o início do texto';
+      return this.i18n.translate('Alinhado com o início do texto');
     }
 
-    return `Foto a ${Math.round(this.profilePosition)}% da esquerda`;
+    return this.i18n.translate('Foto a {percent}% da esquerda').replace('{percent}', String(Math.round(this.profilePosition)));
+  }
+
+  coverSlideLabel(index: number): string {
+    return `${this.i18n.translate('Destaque')} ${index + 1} ${this.i18n.translate('de')} ${this.coverSlides.length}`;
   }
 
   trackCoverPointer(event: PointerEvent): void {

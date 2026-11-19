@@ -1,12 +1,52 @@
 import { TestBed } from '@angular/core/testing';
 import { vi } from 'vitest';
 import { App } from './app';
+import { LanguageService } from './shared/i18n/language.service';
 
 describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [App],
     }).compileComponents();
+  });
+
+  it('should translate courses and testimonials when the language changes', () => {
+    const languageService = TestBed.inject(LanguageService);
+    languageService.setLanguage('pt');
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+
+    const selectLanguage = (language: 'en' | 'es'): void => {
+      const button = Array.from(
+        compiled.querySelectorAll<HTMLButtonElement>('.language-controls button'),
+      ).find((candidate) => candidate.textContent?.trim() === language.toUpperCase());
+      if (!button) throw new Error(`Missing ${language} language button.`);
+      button.click();
+      fixture.detectChanges();
+    };
+
+    try {
+      selectLanguage('en');
+      expect(compiled.querySelector('.profile-role')?.textContent).toContain('Senior Software Engineer');
+      expect(compiled.querySelector('.course-card h3')?.textContent).toContain('DLL Libraries');
+      expect(compiled.querySelector('#recommendations blockquote p')?.textContent).toContain(
+        'I had the pleasure',
+      );
+      expect(document.documentElement.lang).toBe('en');
+      expect(window.localStorage.getItem('portfolio-language')).toBe('en');
+
+      selectLanguage('es');
+      expect(compiled.querySelector('.profile-role')?.textContent).toContain('Ingeniero de software');
+      expect(compiled.querySelector('.course-card h3')?.textContent).toContain('Bibliotecas DLL');
+      expect(compiled.querySelector('#recommendations blockquote p')?.textContent).toContain(
+        'Tuve el placer',
+      );
+      expect(document.documentElement.lang).toBe('es');
+    } finally {
+      languageService.setLanguage('pt');
+      fixture.destroy();
+    }
   });
 
   it('should create the app', () => {
