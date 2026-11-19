@@ -3,6 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  OnDestroy,
   ViewChild,
 } from '@angular/core';
 
@@ -12,15 +13,42 @@ import {
   styleUrl: './about.css',
   templateUrl: './about.html',
 })
-export class About {
+export class About implements OnDestroy {
   @ViewChild('profileAvatar') private profileAvatar?: ElementRef<HTMLImageElement>;
   @ViewChild('profileCopy') private profileCopy?: ElementRef<HTMLElement>;
+
+  readonly coverSlides = [
+    {
+      before: 'ENGENHARIA QUE ',
+      highlight: 'MOVE',
+      after: ' SISTEMAS CRÍTICOS.',
+      description: 'Engenharia de software para plataformas financeiras e operações críticas.',
+    },
+    {
+      before: 'TECNOLOGIA FINANCEIRA. FEITA PARA ',
+      highlight: 'CONFIAR',
+      after: '.',
+      description: 'C#/.NET, Angular e microsserviços com foco em qualidade e segurança.',
+    },
+    {
+      before: 'SOFTWARE QUE ',
+      highlight: 'PROTEGE',
+      after: ' E ESCALA.',
+      description: 'Prevenção a fraudes, sistemas distribuídos e entrega contínua.',
+    },
+  ];
 
   minProfilePosition = 0;
   maxProfilePosition = 100;
   profilePosition = 0;
   profileCopyOffset = 0;
   isDragging = false;
+  activeCoverSlide = 0;
+  coverRotationEnabled = true;
+  coverRotationScheduled = false;
+  prefersReducedMotion = true;
+  coverPointerX = 50;
+  coverPointerY = 50;
 
   private activePointerId: number | null = null;
   private dragStartX = 0;
@@ -29,9 +57,17 @@ export class About {
   private profilePanelWidth = 0;
   private initialProfilePosition = 0;
   private initialProfileCopyOffset = 0;
+  private coverRotationTimer: number | null = null;
+  private coverPointerInside = false;
+  private coverHasFocus = false;
 
   constructor(private readonly changeDetectorRef: ChangeDetectorRef) {
     afterNextRender(() => {
+      this.prefersReducedMotion =
+        window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+      document.addEventListener('visibilitychange', this.handleVisibilityChange);
+      this.scheduleCoverRotation();
+
       const avatar = this.profileAvatar?.nativeElement;
       const copy = this.profileCopy?.nativeElement;
       if (!avatar || !copy || !this.updatePositionBounds(avatar)) {
@@ -63,6 +99,11 @@ export class About {
     });
   }
 
+  ngOnDestroy(): void {
+    this.clearCoverRotationTimer();
+    document.removeEventListener('visibilitychange', this.handleVisibilityChange);
+  }
+
   get profilePositionText(): string {
     if (Math.abs(this.profilePosition - this.initialProfilePosition) < 0.1) {
       return 'Alinhado com o início do texto';
@@ -70,6 +111,126 @@ export class About {
 
     return `Foto a ${Math.round(this.profilePosition)}% da esquerda`;
   }
+
+  trackCoverPointer(event: PointerEvent): void {
+    if (event.pointerType === 'touch' || !(event.currentTarget instanceof HTMLElement)) {
+      return;
+    }
+
+    const coverBounds = event.currentTarget.getBoundingClientRect();
+    if (coverBounds.width === 0 || coverBounds.height === 0) {
+      return;
+    }
+
+    this.coverPointerX = Math.min(
+      100,
+      Math.max(0, ((event.clientX - coverBounds.left) / coverBounds.width) * 100),
+    );
+    this.coverPointerY = Math.min(
+      100,
+      Math.max(0, ((event.clientY - coverBounds.top) / coverBounds.height) * 100),
+    );
+  }
+
+  resetCoverPointer(): void {
+    this.coverPointerX = 50;
+    this.coverPointerY = 50;
+  }
+
+  pauseCoverRotation(event: PointerEvent): void {
+    if (event.pointerType === 'touch') {
+      return;
+    }
+
+    this.coverPointerInside = true;
+    this.clearCoverRotationTimer();
+  }
+
+  resumeCoverRotation(): void {
+    this.coverPointerInside = false;
+    this.scheduleCoverRotation();
+  }
+
+  pauseCoverRotationForFocus(): void {
+    this.coverHasFocus = true;
+    this.clearCoverRotationTimer();
+  }
+
+  resumeCoverRotationAfterFocus(event: FocusEvent): void {
+    const cover = event.currentTarget;
+    if (cover instanceof HTMLElement && event.relatedTarget instanceof Node && cover.contains(event.relatedTarget)) {
+      return;
+    }
+
+    this.coverHasFocus = false;
+    this.scheduleCoverRotation();
+  }
+
+  toggleCoverRotation(): void {
+    this.coverRotationEnabled = !this.coverRotationEnabled;
+    this.clearCoverRotationTimer();
+    this.scheduleCoverRotation();
+  }
+
+  selectCoverSlide(index: number): void {
+    if (index < 0 || index >= this.coverSlides.length) {
+      return;
+    }
+
+    this.activeCoverSlide = index;
+    this.clearCoverRotationTimer();
+    this.scheduleCoverRotation();
+  }
+
+  previousCoverSlide(): void {
+    this.selectCoverSlide(
+      (this.activeCoverSlide + this.coverSlides.length - 1) % this.coverSlides.length,
+    );
+  }
+
+  nextCoverSlide(): void {
+    this.selectCoverSlide((this.activeCoverSlide + 1) % this.coverSlides.length);
+  }
+
+  private scheduleCoverRotation(): void {
+    if (
+      this.coverRotationTimer !== null ||
+      this.prefersReducedMotion ||
+      !this.coverRotationEnabled ||
+      this.coverPointerInside ||
+      this.coverHasFocus ||
+      document.hidden
+    ) {
+      return;
+    }
+
+    this.coverRotationTimer = window.setTimeout(() => {
+      this.coverRotationTimer = null;
+      this.coverRotationScheduled = false;
+      this.activeCoverSlide = (this.activeCoverSlide + 1) % this.coverSlides.length;
+      this.scheduleCoverRotation();
+      this.changeDetectorRef.markForCheck();
+    }, 8000);
+    this.coverRotationScheduled = true;
+  }
+
+  private clearCoverRotationTimer(): void {
+    if (this.coverRotationTimer !== null) {
+      window.clearTimeout(this.coverRotationTimer);
+      this.coverRotationTimer = null;
+    }
+
+    this.coverRotationScheduled = false;
+  }
+
+  private readonly handleVisibilityChange = (): void => {
+    if (document.hidden) {
+      this.clearCoverRotationTimer();
+      return;
+    }
+
+    this.scheduleCoverRotation();
+  };
 
   startDrag(event: PointerEvent): void {
     if (

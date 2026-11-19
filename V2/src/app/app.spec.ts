@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { vi } from 'vitest';
 import { App } from './app';
 
 describe('App', () => {
@@ -24,7 +25,18 @@ describe('App', () => {
       'linkedin.com',
     );
     expect(compiled.querySelector('#about')).toBeTruthy();
-    expect(compiled.querySelector('#about .profile-cover')).toBeTruthy();
+    const profileCover = compiled.querySelector<HTMLElement>('#about .profile-cover');
+    expect(profileCover?.getAttribute('role')).toBe('region');
+    expect(profileCover?.getAttribute('aria-roledescription')).toBe('carrossel');
+    expect(profileCover?.querySelector('.profile-cover__logo')).toBeNull();
+    expect(profileCover?.querySelector('.profile-cover__company')).toBeNull();
+    expect(profileCover?.querySelector('.profile-cover__current')).toBeNull();
+    expect(profileCover?.textContent).not.toContain('XP Inc.');
+    expect(profileCover?.textContent).not.toContain('BTG Pactual');
+    expect(profileCover?.textContent).not.toContain('Banco ASA');
+    expect(profileCover?.querySelector('.profile-cover__slide--active h2')?.textContent).toContain(
+      'ENGENHARIA QUE MOVE SISTEMAS CRÍTICOS',
+    );
     expect(compiled.querySelector('#about .profile-avatar')?.getAttribute('src')).toBe(
       'Img/Danilo1.jpg',
     );
@@ -63,6 +75,113 @@ describe('App', () => {
     fixture.detectChanges();
 
     expect(fixture.nativeElement.querySelector('#about a[href="#experience"]')).toBeNull();
+  });
+
+  it('should show interactive finance impact phrases in the cover carousel', () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    const cover = compiled.querySelector('#about .profile-cover');
+    expect(
+      Array.from(cover?.querySelectorAll('.profile-cover__slide h2') ?? []).map((headline) =>
+        headline.textContent?.trim(),
+      ),
+    ).toEqual([
+      'ENGENHARIA QUE MOVE SISTEMAS CRÍTICOS.',
+      'TECNOLOGIA FINANCEIRA. FEITA PARA CONFIAR.',
+      'SOFTWARE QUE PROTEGE E ESCALA.',
+    ]);
+    expect(
+      Array.from(cover?.querySelectorAll('.profile-cover__highlight') ?? []).map((highlight) =>
+        highlight.textContent?.trim(),
+      ),
+    ).toEqual(['MOVE', 'CONFIAR', 'PROTEGE']);
+    expect(compiled.querySelector('#about .profile-impact')).toBeNull();
+
+    cover?.querySelector<HTMLButtonElement>('[aria-label="Próximo destaque"]')?.click();
+    fixture.detectChanges();
+    expect(cover?.querySelector('.profile-cover__slide--active h2')?.textContent).toContain(
+      'CONFIAR',
+    );
+
+    cover?.querySelector<HTMLButtonElement>('[aria-label="Destaque anterior"]')?.click();
+    fixture.detectChanges();
+    expect(cover?.querySelector('.profile-cover__slide--active h2')?.textContent).toContain(
+      'MOVE',
+    );
+  });
+
+  it(
+    'should automatically advance the cover carousel',
+    async () => {
+      const hiddenDescriptor = Object.getOwnPropertyDescriptor(document, 'hidden');
+      const matchMediaDescriptor = Object.getOwnPropertyDescriptor(window, 'matchMedia');
+      Object.defineProperty(document, 'hidden', { configurable: true, value: false });
+      Object.defineProperty(window, 'matchMedia', {
+        configurable: true,
+        value: () => ({ matches: false }),
+      });
+
+      const fixture = TestBed.createComponent(App);
+      try {
+        fixture.detectChanges();
+        await new Promise<void>((resolve) => window.setTimeout(resolve, 8100));
+        fixture.detectChanges();
+
+        expect(
+          fixture.nativeElement.querySelector('.profile-cover__slide--active h2')?.textContent,
+        ).toContain('CONFIAR');
+      } finally {
+        fixture.destroy();
+        if (hiddenDescriptor) {
+          Object.defineProperty(document, 'hidden', hiddenDescriptor);
+        } else {
+          Reflect.deleteProperty(document, 'hidden');
+        }
+        if (matchMediaDescriptor) {
+          Object.defineProperty(window, 'matchMedia', matchMediaDescriptor);
+        } else {
+          Reflect.deleteProperty(window, 'matchMedia');
+        }
+      }
+    },
+    12000,
+  );
+
+  it('should move and reset the profile cover spotlight with the pointer', () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+
+    const cover = fixture.nativeElement.querySelector('#about .profile-cover') as HTMLElement | null;
+    if (!cover) throw new Error('Profile cover was not rendered.');
+
+    const bounds: DOMRect = {
+      x: 100,
+      y: 50,
+      left: 100,
+      top: 50,
+      right: 300,
+      bottom: 150,
+      width: 200,
+      height: 100,
+      toJSON: () => ({}),
+    };
+    vi.spyOn(cover, 'getBoundingClientRect').mockReturnValue(bounds);
+    const pointerMove = new MouseEvent('pointermove', { clientX: 150, clientY: 75 });
+    Object.defineProperty(pointerMove, 'pointerType', { value: 'mouse' });
+    cover.dispatchEvent(pointerMove);
+    fixture.detectChanges();
+
+    expect(cover.style.getPropertyValue('--cover-pointer-x')).toBe('25%');
+    expect(cover.style.getPropertyValue('--cover-pointer-y')).toBe('25%');
+
+    cover.dispatchEvent(new Event('pointerleave'));
+    fixture.detectChanges();
+
+    expect(cover.style.getPropertyValue('--cover-pointer-x')).toBe('50%');
+    expect(cover.style.getPropertyValue('--cover-pointer-y')).toBe('50%');
+    fixture.destroy();
   });
 
   it('should show all five LinkedIn recommendations', () => {

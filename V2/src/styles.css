@@ -1070,7 +1070,7 @@ body.linkedin-layout-preview #about.resume-section {
 }
 
 body.linkedin-layout-preview #about .resume-section-content {
-  --profile-cover-height: clamp(10rem, 22vw, 16rem);
+  --profile-cover-height: clamp(11rem, 16vw, 14rem);
   --profile-avatar-half: 4.5rem;
 
   position: relative;
@@ -1082,11 +1082,270 @@ body.linkedin-layout-preview #about .resume-section-content {
 }
 
 body.linkedin-layout-preview #about .profile-cover {
+  position: relative;
+  isolation: isolate;
   display: block;
   height: var(--profile-cover-height);
+  overflow: hidden;
   background:
-    linear-gradient(110deg, rgb(9 12 16 / 26%), rgb(20 24 28 / 10%)),
-    url('../public/Img/background-options/finance-meeting.jpg') center 50% / cover;
+    radial-gradient(ellipse at 16% 100%, rgb(213 43 170 / 28%), transparent 42%),
+    radial-gradient(ellipse at 90% 0%, rgb(18 196 224 / 30%), transparent 43%),
+    repeating-linear-gradient(
+      132deg,
+      transparent 0 5.5rem,
+      rgb(255 255 255 / 4%) 5.5rem 5.65rem,
+      transparent 5.65rem 11rem
+    ),
+    linear-gradient(115deg, #08090d 0%, #15101f 55%, #080b12 100%);
+}
+
+body.linkedin-layout-preview #about .profile-cover::after {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 34%,
+    rgb(255 49 160 / 12%) 47%,
+    rgb(111 216 235 / 14%) 52%,
+    transparent 66%
+  );
+  background-size: 220% 100%;
+  content: '';
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: profile-cover-light-sweep 12s linear infinite;
+}
+
+body.linkedin-layout-preview #about .profile-cover::before {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(
+    circle at var(--cover-pointer-x, 50%) var(--cover-pointer-y, 50%),
+    rgb(255 255 255 / 14%),
+    rgb(183 157 91 / 8%) 16%,
+    transparent 38%
+  );
+  content: '';
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 240ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body.linkedin-layout-preview #about .profile-cover:hover::before {
+    opacity: 1;
+  }
+}
+
+.profile-cover__visual {
+  position: absolute;
+  top: 50%;
+  right: 2%;
+  z-index: 0;
+  width: min(38rem, 58%);
+  max-height: 100%;
+  object-fit: contain;
+  opacity: 0.16;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  transform: translateY(-50%);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 35%, #000 100%);
+  mask-image: linear-gradient(90deg, transparent, #000 35%, #000 100%);
+  animation:
+    profile-cover-art-pulse 8s ease-in-out infinite alternate,
+    profile-cover-art-drift 14s ease-in-out infinite alternate;
+}
+
+.profile-cover__slides {
+  position: absolute;
+  inset: 0 1rem 2.65rem;
+  z-index: 1;
+}
+
+.profile-cover__slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(0.5rem);
+  transition:
+    opacity 240ms ease,
+    transform 240ms ease;
+}
+
+.profile-cover__slide--active {
+  z-index: 1;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.profile-cover__slide--active .profile-cover__slide-copy {
+  animation: profile-cover-copy-in 650ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes profile-cover-art-pulse {
+  from {
+    filter: brightness(0.9);
+    opacity: 0.14;
+  }
+
+  to {
+    filter: brightness(1.15);
+    opacity: 0.26;
+  }
+}
+
+@keyframes profile-cover-art-drift {
+  from {
+    transform: translate3d(0, -50%, 0) scale(1);
+  }
+
+  to {
+    transform: translate3d(-1.25rem, -52%, 0) scale(1.06);
+  }
+}
+
+@keyframes profile-cover-light-sweep {
+  from {
+    background-position: 100% 0;
+  }
+
+  to {
+    background-position: -120% 0;
+  }
+}
+
+@keyframes profile-cover-copy-in {
+  from {
+    opacity: 0;
+    translate: 0 0.8rem;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+.profile-cover__slide-copy {
+  width: min(86%, 56rem);
+  color: #f8f9fa;
+  text-align: center;
+  text-shadow: 0 2px 18px rgb(0 0 0 / 45%);
+}
+
+.profile-cover__slide h2 {
+  margin: 0;
+  color: #f8f9fa;
+  font-size: clamp(1.55rem, 4vw, 3.25rem);
+  font-weight: 900;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+  text-shadow: 0 2px 18px rgb(0 0 0 / 45%);
+  text-transform: uppercase;
+}
+
+.profile-cover__highlight {
+  color: #ff3b5c;
+  text-shadow: 0 2px 24px rgb(255 59 92 / 32%);
+}
+
+.profile-cover__description {
+  max-width: 42rem;
+  margin: 0.8rem auto 0;
+  color: #c8d0d7;
+  font-size: clamp(0.82rem, 1.2vw, 1rem);
+  letter-spacing: 0.015em;
+  line-height: 1.45;
+}
+
+.profile-cover__controls {
+  position: absolute;
+  right: clamp(1rem, 3vw, 2rem);
+  bottom: 0.65rem;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.profile-cover__controls button {
+  display: grid;
+  width: 1.8rem;
+  height: 1.8rem;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgb(255 255 255 / 20%);
+  border-radius: 50%;
+  background: rgb(14 19 24 / 72%);
+  color: #f8f9fa;
+  cursor: pointer;
+}
+
+.profile-cover__controls button:hover,
+.profile-cover__controls button[aria-current='true'] {
+  border-color: #f1a28d;
+  background: rgb(189 93 56 / 82%);
+}
+
+.profile-cover__controls .profile-cover__indicator {
+  position: relative;
+  width: 1rem;
+  height: 0.3rem;
+  overflow: hidden;
+  border: 0;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 46%);
+  transition:
+    width 180ms ease,
+    background-color 180ms ease;
+}
+
+.profile-cover__controls .profile-cover__indicator--active {
+  width: 2.2rem;
+  background: rgb(255 255 255 / 24%);
+}
+
+.profile-cover--rotating .profile-cover__indicator--active::after {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: #ff3b5c;
+  content: '';
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: profile-cover-progress 8s linear forwards;
+}
+
+@keyframes profile-cover-progress {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.profile-cover__controls button:focus-visible {
+  outline: 2px solid #f1a28d;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.linkedin-layout-preview #about .profile-cover::before,
+  body.linkedin-layout-preview #about .profile-cover::after,
+  .profile-cover__slide,
+  .profile-cover__controls .profile-cover__indicator,
+  .profile-cover__controls .profile-cover__indicator::after,
+  .profile-cover__visual,
+  .profile-cover__slide--active .profile-cover__slide-copy {
+    animation: none;
+    transition: none;
+  }
+
 }
 
 body.linkedin-layout-preview #about .profile-avatar {
@@ -1207,7 +1466,7 @@ body.linkedin-layout-preview #about .profile-panel .profile-actions {
   }
 
   body.linkedin-layout-preview #about .resume-section-content {
-    --profile-cover-height: clamp(14rem, 20vw, 17rem);
+    --profile-cover-height: clamp(12rem, 14vw, 15rem);
     --profile-avatar-half: 5.5rem;
   }
 
@@ -1253,7 +1512,46 @@ body.linkedin-layout-preview #about .profile-panel .profile-actions {
   }
 
   body.linkedin-layout-preview #about .resume-section-content {
-    --profile-cover-height: 9rem;
+    --profile-cover-height: 12rem;
+  }
+
+  .profile-cover__visual {
+    right: -15%;
+    width: 100%;
+    opacity: 0.12;
+  }
+
+  .profile-cover__slides {
+    inset: 0.35rem 0.5rem 2.35rem;
+  }
+
+  .profile-cover__slide {
+    align-items: flex-start;
+    padding-top: 1rem;
+  }
+
+  .profile-cover__slide-copy {
+    width: 96%;
+  }
+
+  .profile-cover__slide h2 {
+    font-size: clamp(1.15rem, 5.2vw, 1.65rem);
+    line-height: 1.02;
+  }
+
+  .profile-cover__description {
+    display: none;
+  }
+
+  .profile-cover__controls {
+    right: 0.65rem;
+    bottom: 0.4rem;
+    gap: 0.3rem;
+  }
+
+  .profile-cover__controls button {
+    width: 1.65rem;
+    height: 1.65rem;
   }
 
   body.linkedin-layout-preview #about .profile-avatar {

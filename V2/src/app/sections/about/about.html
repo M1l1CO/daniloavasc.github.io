@@ -5,7 +5,74 @@
       [style.--profile-position]="profilePosition + '%'"
       [style.--profile-copy-offset]="profileCopyOffset + 'px'"
     >
-      <div class="profile-cover" aria-hidden="true"></div>
+      <div
+        class="profile-cover"
+        [class.profile-cover--rotating]="coverRotationScheduled"
+        role="region"
+        aria-roledescription="carrossel"
+        aria-label="Destaques da trajetória profissional em finanças e tecnologia"
+        [style.--cover-pointer-x]="coverPointerX + '%'"
+        [style.--cover-pointer-y]="coverPointerY + '%'"
+        (pointermove)="trackCoverPointer($event)"
+        (pointerenter)="pauseCoverRotation($event)"
+        (pointerleave)="resumeCoverRotation(); resetCoverPointer()"
+        (focusin)="pauseCoverRotationForFocus()"
+        (focusout)="resumeCoverRotationAfterFocus($event)"
+      >
+        <img class="profile-cover__visual" src="assets/impact/finance-tech-visual.svg" alt="" />
+        <div class="profile-cover__slides" aria-live="polite">
+          @for (slide of coverSlides; track slide.highlight; let index = $index) {
+            <article
+              class="profile-cover__slide"
+              [class.profile-cover__slide--active]="activeCoverSlide === index"
+              [attr.aria-hidden]="activeCoverSlide !== index"
+              aria-roledescription="slide"
+              role="group"
+              [attr.aria-label]="'Destaque ' + (index + 1) + ' de ' + coverSlides.length"
+            >
+              <div class="profile-cover__slide-copy">
+                <h2>
+                  {{ slide.before }}<span class="profile-cover__highlight">{{ slide.highlight }}</span>{{ slide.after }}
+                </h2>
+                <p class="profile-cover__description">{{ slide.description }}</p>
+              </div>
+            </article>
+          }
+        </div>
+        <div class="profile-cover__controls" role="group" aria-label="Navegação do carrossel">
+          <button type="button" aria-label="Destaque anterior" (click)="previousCoverSlide()">
+            <i class="fas fa-chevron-left" aria-hidden="true"></i>
+          </button>
+          @for (slide of coverSlides; track slide.highlight; let index = $index) {
+            <button
+              class="profile-cover__indicator"
+              [class.profile-cover__indicator--active]="activeCoverSlide === index"
+              type="button"
+              [attr.aria-label]="'Mostrar destaque ' + (index + 1)"
+              [attr.aria-current]="activeCoverSlide === index ? 'true' : null"
+              (click)="selectCoverSlide(index)"
+            ></button>
+          }
+          <button type="button" aria-label="Próximo destaque" (click)="nextCoverSlide()">
+            <i class="fas fa-chevron-right" aria-hidden="true"></i>
+          </button>
+          @if (!prefersReducedMotion) {
+            <button
+              type="button"
+              [attr.aria-label]="coverRotationEnabled ? 'Pausar carrossel' : 'Reproduzir carrossel'"
+              [attr.aria-pressed]="!coverRotationEnabled"
+              (click)="toggleCoverRotation()"
+            >
+              <i
+                class="fas"
+                [class.fa-pause]="coverRotationEnabled"
+                [class.fa-play]="!coverRotationEnabled"
+                aria-hidden="true"
+              ></i>
+            </button>
+          }
+        </div>
+      </div>
       <img
         #profileAvatar
         class="profile-avatar"
