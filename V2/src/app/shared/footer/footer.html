@@ -1,1 +1,70 @@
-<p>footer works!</p>
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__main">
+      <div class="site-footer__brand">
+        <a class="site-footer__identity" href="#about" aria-label="Danilo Vasconcellos">
+          <span class="site-footer__monogram" aria-hidden="true">DV</span>
+          <span>Danilo Vasconcellos</span>
+        </a>
+        <p>{{ 'Construindo software confiável para desafios que importam.' | translate }}</p>
+      </div>
+
+      <nav class="site-footer__navigation" [attr.aria-label]="'Navegação do rodapé' | translate">
+        <h2>{{ 'Navegação' | translate }}</h2>
+        <ul>
+          <li><a href="#about">{{ 'Sobre' | translate }}</a></li>
+          <li><a href="#experience">{{ 'Experiência' | translate }}</a></li>
+          <li><a href="#education">{{ 'Educação' | translate }}</a></li>
+          <li><a href="#skills">{{ 'Habilidades' | translate }}</a></li>
+          <li><a href="#awards">{{ 'Cursos' | translate }}</a></li>
+          <li><a href="#recommendations">{{ 'Recomendações' | translate }}</a></li>
+          <li><a href="#interests">{{ 'Interesses' | translate }}</a></li>
+        </ul>
+      </nav>
+
+      <div class="site-footer__contact">
+        <h2>{{ 'Vamos conversar?' | translate }}</h2>
+        <p>
+          {{ 'Entre em contato para falar sobre software, tecnologia e oportunidades.' | translate }}
+        </p>
+        <a
+          class="site-footer__email"
+          href="mailto:daniloaraujo.vasconcellos@gmail.com?subject=Contato%20pelo%20portf%C3%B3lio"
+        >
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+          {{ 'Enviar e-mail' | translate }}
+        </a>
+        <div
+          class="site-footer__socials"
+          role="group"
+          [attr.aria-label]="'Contatos e redes sociais' | translate"
+        >
+          <a
+            href="https://www.linkedin.com/in/daniloavasc/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+          >
+            <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+          </a>
+          <a
+            href="https://github.com/M1l1CO"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+          >
+            <i class="fab fa-github" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-footer__bottom">
+      <p>© {{ currentYear }} Danilo Vasconcellos. {{ 'Todos os direitos reservados.' | translate }}</p>
+      <a class="site-footer__back-to-top" href="#about">
+        {{ 'Voltar ao topo' | translate }}
+        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+      </a>
+    </div>
+  </div>
+</footer>

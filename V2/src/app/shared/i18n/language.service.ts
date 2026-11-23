@@ -5,6 +5,34 @@ export type Language = 'pt' | 'en' | 'es';
 type Translation = Record<Language, string>;
 
 const translations: Record<string, Translation> = {
+  'Construindo software confiável para desafios que importam.': {
+    pt: 'Construindo software confiável para desafios que importam.',
+    en: 'Building reliable software for challenges that matter.',
+    es: 'Creando software confiable para desafíos que importan.',
+  },
+  'Navegação do rodapé': {
+    pt: 'Navegação do rodapé',
+    en: 'Footer navigation',
+    es: 'Navegación del pie de página',
+  },
+  Navegação: { pt: 'Navegação', en: 'Navigation', es: 'Navegación' },
+  'Vamos conversar?': {
+    pt: 'Vamos conversar?',
+    en: "Let's talk",
+    es: '¿Hablamos?',
+  },
+  'Entre em contato para falar sobre software, tecnologia e oportunidades.': {
+    pt: 'Entre em contato para falar sobre software, tecnologia e oportunidades.',
+    en: 'Get in touch to talk about software, technology, and opportunities.',
+    es: 'Ponte en contacto para hablar de software, tecnología y oportunidades.',
+  },
+  'Enviar e-mail': { pt: 'Enviar e-mail', en: 'Send an email', es: 'Enviar un correo' },
+  'Todos os direitos reservados.': {
+    pt: 'Todos os direitos reservados.',
+    en: 'All rights reserved.',
+    es: 'Todos los derechos reservados.',
+  },
+  'Voltar ao topo': { pt: 'Voltar ao topo', en: 'Back to top', es: 'Volver arriba' },
   'Selecionar idioma': { pt: 'Selecionar idioma', en: 'Select language', es: 'Seleccionar idioma' },
   'Alternar tema': { pt: 'Alternar tema', en: 'Toggle theme', es: 'Cambiar tema' },
   'Navegação principal': { pt: 'Navegação principal', en: 'Main navigation', es: 'Navegación principal' },

@@ -34,6 +34,7 @@ describe('App', () => {
       expect(compiled.querySelector('#recommendations blockquote p')?.textContent).toContain(
         'I had the pleasure',
       );
+      expect(compiled.querySelector('.site-footer__contact h2')?.textContent).toBe("Let's talk");
       expect(document.documentElement.lang).toBe('en');
       expect(window.localStorage.getItem('portfolio-language')).toBe('en');
 
@@ -43,6 +44,7 @@ describe('App', () => {
       expect(compiled.querySelector('#recommendations blockquote p')?.textContent).toContain(
         'Tuve el placer',
       );
+      expect(compiled.querySelector('.site-footer__contact h2')?.textContent).toBe('¿Hablamos?');
       expect(document.documentElement.lang).toBe('es');
     } finally {
       languageService.setLanguage('pt');
@@ -97,6 +99,15 @@ describe('App', () => {
     expect(compiled.querySelector('#recommendations')).toBeTruthy();
     expect(compiled.querySelector('#skills')).toBeTruthy();
     expect(compiled.querySelector('#interests')).toBeTruthy();
+    const footer = compiled.querySelector<HTMLElement>('app-footer footer');
+    expect(
+      footer?.querySelector(
+        'a[href="mailto:daniloaraujo.vasconcellos@gmail.com?subject=Contato%20pelo%20portf%C3%B3lio"]',
+      ),
+    ).toBeTruthy();
+    expect(footer?.querySelector('a[href="#experience"]')?.textContent?.trim()).toBe('Experiência');
+    expect(footer?.querySelector('.site-footer__back-to-top')?.getAttribute('href')).toBe('#about');
+    expect(footer?.textContent).toContain(String(new Date().getFullYear()));
     expect(compiled.querySelector('#awards')).toBeTruthy();
     expect(compiled.querySelector('app-site-navigation')).toBeTruthy();
     expect(

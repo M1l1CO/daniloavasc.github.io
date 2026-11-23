@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { SiteNavigation } from './layout/site-navigation/site-navigation';
+import { Footer } from './shared/footer/footer';
 import { About } from './sections/about/about';
 import { Courses } from './sections/courses/courses';
 import { Education } from './sections/education/education';
@@ -18,6 +19,7 @@ interface BackgroundParticle {
 @Component({
   imports: [
     SiteNavigation,
+    Footer,
     About,
     Experience,
     Education,

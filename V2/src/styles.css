@@ -1,4 +1,5 @@
 body {
+  --terracotta-text: #f1a28d;
   background-position: center;
   background-size: cover;
   background-attachment: fixed;
@@ -6,6 +7,10 @@ body {
     url('../public/Img/bg9.jpg');
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+.text-danger {
+  color: var(--terracotta-text) !important;
 }
 
 .resume-section h1,
@@ -103,7 +108,7 @@ section.resume-section {
 #experience .resume-section-content > h2 {
   position: relative;
   margin-bottom: 1.75rem !important;
-  color: #f8f9fa !important;
+  color: var(--terracotta-text) !important;
   font-size: clamp(2.2rem, 4vw, 3rem);
   line-height: 1.1;
 }
@@ -115,7 +120,7 @@ section.resume-section {
   height: 0.2rem;
   margin-top: 0.7rem;
   border-radius: 999px;
-  background: #bd5d38;
+  background: var(--terracotta-text);
   content: '';
 }
 
@@ -824,13 +829,20 @@ body.linkedin-layout-preview.light-theme #sideNav .theme-toggle {
   color: #a94c2b;
 }
 
+body.light-theme {
+  --terracotta-text: #a94c2b;
+}
+
 body.light-theme .resume-section .resume-section-content {
   border-color: rgb(189 93 56 / 24%);
   background-color: rgb(255 255 255 / 94%);
   box-shadow: 0 1.5rem 4rem rgb(50 60 70 / 14%);
 }
 
-body.light-theme .resume-section h2,
+body.light-theme .resume-section h2 {
+  color: var(--terracotta-text) !important;
+}
+
 body.light-theme .resume-section h3,
 body.light-theme .text-white,
 body.light-theme .company-name,
