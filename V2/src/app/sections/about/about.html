@@ -8,9 +8,9 @@
       <div
         class="profile-cover"
         [class.profile-cover--rotating]="coverRotationScheduled"
-        role="region"
-        [attr.aria-roledescription]="'carrossel' | translate"
-        [attr.aria-label]="'Destaques da trajetória profissional em finanças e tecnologia' | translate"
+        [attr.role]="showCoverCarousel ? 'region' : null"
+        [attr.aria-roledescription]="showCoverCarousel ? ('carrossel' | translate) : null"
+        [attr.aria-label]="showCoverCarousel ? ('Destaques da trajetória profissional em finanças e tecnologia' | translate) : null"
         [style.--cover-pointer-x]="coverPointerX + '%'"
         [style.--cover-pointer-y]="coverPointerY + '%'"
         (pointermove)="trackCoverPointer($event)"
@@ -19,65 +19,67 @@
         (focusin)="pauseCoverRotationForFocus()"
         (focusout)="resumeCoverRotationAfterFocus($event)"
       >
-        <img class="profile-cover__visual" src="assets/impact/finance-tech-visual.svg" alt="" />
-        <div class="profile-cover__slides" aria-live="polite">
-          @for (slide of coverSlides; track slide.highlight; let index = $index) {
-            <article
-              class="profile-cover__slide"
-              [class.profile-cover__slide--active]="activeCoverSlide === index"
-              [attr.aria-hidden]="activeCoverSlide !== index"
-              [attr.aria-roledescription]="'slide' | translate"
-              role="group"
-              [attr.aria-label]="coverSlideLabel(index)"
-            >
-              <div class="profile-cover__slide-copy">
-                <h2>
-                  {{ slide.before | translate }}<span class="profile-cover__highlight">{{ slide.highlight | translate }}</span>{{ slide.after | translate }}
-                </h2>
-                <p class="profile-cover__description">{{ slide.description | translate }}</p>
-              </div>
-            </article>
-          }
-        </div>
-        <div class="profile-cover__controls" role="group" [attr.aria-label]="'Navegação do carrossel' | translate">
-          <button type="button" [attr.aria-label]="'Destaque anterior' | translate" (click)="previousCoverSlide()">
-            <i class="fas fa-chevron-left" aria-hidden="true"></i>
-          </button>
-          @for (slide of coverSlides; track slide.highlight; let index = $index) {
-            <button
-              class="profile-cover__indicator"
-              [class.profile-cover__indicator--active]="activeCoverSlide === index"
-              type="button"
-              [attr.aria-label]="coverSlideLabel(index)"
-              [attr.aria-current]="activeCoverSlide === index ? 'true' : null"
-              (click)="selectCoverSlide(index)"
-            ></button>
-          }
-          <button type="button" [attr.aria-label]="'Próximo destaque' | translate" (click)="nextCoverSlide()">
-            <i class="fas fa-chevron-right" aria-hidden="true"></i>
-          </button>
-          @if (!prefersReducedMotion) {
-            <button
-              type="button"
-              [attr.aria-label]="(coverRotationEnabled ? 'Pausar carrossel' : 'Reproduzir carrossel') | translate"
-              [attr.aria-pressed]="!coverRotationEnabled"
-              (click)="toggleCoverRotation()"
-            >
-              <i
-                class="fas"
-                [class.fa-pause]="coverRotationEnabled"
-                [class.fa-play]="!coverRotationEnabled"
-                aria-hidden="true"
-              ></i>
+        <img class="profile-cover__visual" src="Img/cover/Cover-linkedin-asa.png" alt="" />
+        @if (showCoverCarousel) {
+          <div class="profile-cover__slides" aria-live="polite">
+            @for (slide of coverSlides; track slide.highlight; let index = $index) {
+              <article
+                class="profile-cover__slide"
+                [class.profile-cover__slide--active]="activeCoverSlide === index"
+                [attr.aria-hidden]="activeCoverSlide !== index"
+                [attr.aria-roledescription]="'slide' | translate"
+                role="group"
+                [attr.aria-label]="coverSlideLabel(index)"
+              >
+                <div class="profile-cover__slide-copy">
+                  <h2>
+                    {{ slide.before | translate }}<span class="profile-cover__highlight">{{ slide.highlight | translate }}</span>{{ slide.after | translate }}
+                  </h2>
+                  <p class="profile-cover__description">{{ slide.description | translate }}</p>
+                </div>
+              </article>
+            }
+          </div>
+          <div class="profile-cover__controls" role="group" [attr.aria-label]="'Navegação do carrossel' | translate">
+            <button type="button" [attr.aria-label]="'Destaque anterior' | translate" (click)="previousCoverSlide()">
+              <i class="fas fa-chevron-left" aria-hidden="true"></i>
             </button>
-          }
-        </div>
+            @for (slide of coverSlides; track slide.highlight; let index = $index) {
+              <button
+                class="profile-cover__indicator"
+                [class.profile-cover__indicator--active]="activeCoverSlide === index"
+                type="button"
+                [attr.aria-label]="coverSlideLabel(index)"
+                [attr.aria-current]="activeCoverSlide === index ? 'true' : null"
+                (click)="selectCoverSlide(index)"
+              ></button>
+            }
+            <button type="button" [attr.aria-label]="'Próximo destaque' | translate" (click)="nextCoverSlide()">
+              <i class="fas fa-chevron-right" aria-hidden="true"></i>
+            </button>
+            @if (!prefersReducedMotion) {
+              <button
+                type="button"
+                [attr.aria-label]="(coverRotationEnabled ? 'Pausar carrossel' : 'Reproduzir carrossel') | translate"
+                [attr.aria-pressed]="!coverRotationEnabled"
+                (click)="toggleCoverRotation()"
+              >
+                <i
+                  class="fas"
+                  [class.fa-pause]="coverRotationEnabled"
+                  [class.fa-play]="!coverRotationEnabled"
+                  aria-hidden="true"
+                ></i>
+              </button>
+            }
+          </div>
+        }
       </div>
       <img
         #profileAvatar
         class="profile-avatar"
         [class.profile-avatar--dragging]="isDragging"
-        src="Img/Danilo1.jpg"
+        src="Img/profile/_33A3031-768.jpg"
         [alt]="'Foto de perfil de Danilo Vasconcellos' | translate"
         role="slider"
         [attr.aria-label]="'Ajustar posição horizontal da foto de perfil' | translate"

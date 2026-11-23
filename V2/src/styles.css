@@ -1141,21 +1141,14 @@ body.linkedin-layout-preview #about .profile-cover::before {
 
 .profile-cover__visual {
   position: absolute;
-  top: 50%;
-  right: 2%;
+  inset: 0;
   z-index: 0;
-  width: min(38rem, 58%);
-  max-height: 100%;
-  object-fit: contain;
-  opacity: 0.16;
-  mix-blend-mode: screen;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
   pointer-events: none;
-  transform: translateY(-50%);
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 35%, #000 100%);
-  mask-image: linear-gradient(90deg, transparent, #000 35%, #000 100%);
-  animation:
-    profile-cover-art-pulse 8s ease-in-out infinite alternate,
-    profile-cover-art-drift 14s ease-in-out infinite alternate;
+  user-select: none;
 }
 
 .profile-cover__slides {
@@ -1187,28 +1180,6 @@ body.linkedin-layout-preview #about .profile-cover::before {
 
 .profile-cover__slide--active .profile-cover__slide-copy {
   animation: profile-cover-copy-in 650ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
-}
-
-@keyframes profile-cover-art-pulse {
-  from {
-    filter: brightness(0.9);
-    opacity: 0.14;
-  }
-
-  to {
-    filter: brightness(1.15);
-    opacity: 0.26;
-  }
-}
-
-@keyframes profile-cover-art-drift {
-  from {
-    transform: translate3d(0, -50%, 0) scale(1);
-  }
-
-  to {
-    transform: translate3d(-1.25rem, -52%, 0) scale(1.06);
-  }
 }
 
 @keyframes profile-cover-light-sweep {
@@ -1340,7 +1311,6 @@ body.linkedin-layout-preview #about .profile-cover::before {
   .profile-cover__slide,
   .profile-cover__controls .profile-cover__indicator,
   .profile-cover__controls .profile-cover__indicator::after,
-  .profile-cover__visual,
   .profile-cover__slide--active .profile-cover__slide-copy {
     animation: none;
     transition: none;
@@ -1360,11 +1330,11 @@ body.linkedin-layout-preview #about .profile-avatar {
   width: 9rem;
   height: 9rem;
   border: 0.35rem solid #14181c;
-  border-radius: 50%;
+  border-radius: 1.25rem;
   background: #14181c;
   box-shadow: 0 0.5rem 1.5rem rgb(0 0 0 / 30%);
   object-fit: cover;
-  object-position: center 35%;
+  object-position: center top;
   transform: translateX(-50%);
   cursor: grab;
   touch-action: pan-y;
@@ -1486,6 +1456,13 @@ body.linkedin-layout-preview #about .profile-panel .profile-actions {
     flex-wrap: wrap;
   }
 
+  body.linkedin-layout-preview #sideNav .navbar-toggler {
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0.5rem;
+    border-radius: 0.65rem;
+  }
+
   body.linkedin-layout-preview #sideNav .navbar-collapse {
     flex-basis: 100%;
     width: 100%;
@@ -1494,6 +1471,64 @@ body.linkedin-layout-preview #about .profile-panel .profile-actions {
     border: 1px solid rgb(255 255 255 / 10%);
     border-radius: 0.75rem;
     background: #1a1f23;
+  }
+
+  body.linkedin-layout-preview #sideNav .navbar-collapse.show {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+  }
+
+  body.linkedin-layout-preview #sideNav .language-controls {
+    gap: 0.4rem;
+    margin: 0;
+  }
+
+  body.linkedin-layout-preview #sideNav .language-controls button {
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  body.linkedin-layout-preview #sideNav .theme-toggle {
+    width: 2.75rem;
+    height: 2.75rem;
+    flex-basis: 2.75rem;
+    margin: 0;
+  }
+
+  body.linkedin-layout-preview #sideNav .navbar-nav {
+    grid-column: 1 / -1;
+    gap: 0.25rem;
+    margin: 0;
+  }
+
+  body.linkedin-layout-preview #sideNav .navbar-nav .nav-item {
+    width: 100%;
+  }
+
+  body.linkedin-layout-preview #sideNav .navbar-nav .nav-item .nav-link {
+    display: flex;
+    width: 100%;
+    height: auto;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.75rem;
+    padding: 0.55rem 0.75rem;
+    border-radius: 0.65rem;
+  }
+
+  body.linkedin-layout-preview #sideNav .nav-link-label {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    clip-path: none;
+    white-space: normal;
   }
 
   body.linkedin-layout-preview
@@ -1513,12 +1548,6 @@ body.linkedin-layout-preview #about .profile-panel .profile-actions {
 
   body.linkedin-layout-preview #about .resume-section-content {
     --profile-cover-height: 12rem;
-  }
-
-  .profile-cover__visual {
-    right: -15%;
-    width: 100%;
-    opacity: 0.12;
   }
 
   .profile-cover__slides {

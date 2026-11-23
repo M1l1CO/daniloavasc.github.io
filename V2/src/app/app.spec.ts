@@ -1,12 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { vi } from 'vitest';
 import { App } from './app';
+import { About } from './sections/about/about';
 import { LanguageService } from './shared/i18n/language.service';
 
 describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [App],
+      imports: [App, About],
     }).compileComponents();
   });
 
@@ -66,19 +67,22 @@ describe('App', () => {
     );
     expect(compiled.querySelector('#about')).toBeTruthy();
     const profileCover = compiled.querySelector<HTMLElement>('#about .profile-cover');
-    expect(profileCover?.getAttribute('role')).toBe('region');
-    expect(profileCover?.getAttribute('aria-roledescription')).toBe('carrossel');
+    expect(profileCover?.getAttribute('role')).toBeNull();
+    expect(profileCover?.getAttribute('aria-roledescription')).toBeNull();
+    expect(profileCover?.querySelector('.profile-cover__visual')?.getAttribute('src')).toBe(
+      'Img/cover/Cover-linkedin-asa.png',
+    );
+    expect(profileCover?.querySelector('.profile-cover__slides')).toBeNull();
+    expect(profileCover?.querySelector('.profile-cover__controls')).toBeNull();
     expect(profileCover?.querySelector('.profile-cover__logo')).toBeNull();
     expect(profileCover?.querySelector('.profile-cover__company')).toBeNull();
     expect(profileCover?.querySelector('.profile-cover__current')).toBeNull();
     expect(profileCover?.textContent).not.toContain('XP Inc.');
     expect(profileCover?.textContent).not.toContain('BTG Pactual');
     expect(profileCover?.textContent).not.toContain('Banco ASA');
-    expect(profileCover?.querySelector('.profile-cover__slide--active h2')?.textContent).toContain(
-      'ENGENHARIA QUE MOVE SISTEMAS CRÍTICOS',
-    );
+    expect(profileCover?.querySelector('.profile-cover__slide--active h2')).toBeNull();
     expect(compiled.querySelector('#about .profile-avatar')?.getAttribute('src')).toBe(
-      'Img/Danilo1.jpg',
+      'Img/profile/_33A3031-768.jpg',
     );
     expect(compiled.querySelector('.profile-location')?.textContent).toContain(
       'São Paulo, Brasil · Híbrido',
@@ -118,11 +122,12 @@ describe('App', () => {
   });
 
   it('should show interactive finance impact phrases in the cover carousel', () => {
-    const fixture = TestBed.createComponent(App);
+    const fixture = TestBed.createComponent(About);
+    fixture.componentInstance.showCoverCarousel = true;
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement as HTMLElement;
-    const cover = compiled.querySelector('#about .profile-cover');
+    const cover = compiled.querySelector('.profile-cover');
     expect(
       Array.from(cover?.querySelectorAll('.profile-cover__slide h2') ?? []).map((headline) =>
         headline.textContent?.trim(),
@@ -163,7 +168,8 @@ describe('App', () => {
         value: () => ({ matches: false }),
       });
 
-      const fixture = TestBed.createComponent(App);
+      const fixture = TestBed.createComponent(About);
+      fixture.componentInstance.showCoverCarousel = true;
       try {
         fixture.detectChanges();
         await new Promise<void>((resolve) => window.setTimeout(resolve, 8100));

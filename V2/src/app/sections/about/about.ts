@@ -48,6 +48,7 @@ export class About implements OnDestroy {
   profileCopyOffset = 0;
   isDragging = false;
   activeCoverSlide = 0;
+  showCoverCarousel = false;
   coverRotationEnabled = true;
   coverRotationScheduled = false;
   prefersReducedMotion = true;
@@ -203,6 +204,7 @@ export class About implements OnDestroy {
   private scheduleCoverRotation(): void {
     if (
       this.coverRotationTimer !== null ||
+      !this.showCoverCarousel ||
       this.prefersReducedMotion ||
       !this.coverRotationEnabled ||
       this.coverPointerInside ||
