@@ -69,22 +69,24 @@ describe('App', () => {
     );
     expect(compiled.querySelector('#about')).toBeTruthy();
     const profileCover = compiled.querySelector<HTMLElement>('#about .profile-cover');
-    expect(profileCover?.getAttribute('role')).toBeNull();
-    expect(profileCover?.getAttribute('aria-roledescription')).toBeNull();
+    expect(profileCover?.getAttribute('role')).toBe('region');
+    expect(profileCover?.getAttribute('aria-roledescription')).toBe('carrossel');
     expect(profileCover?.querySelector('.profile-cover__visual')?.getAttribute('src')).toBe(
-      'Img/cover/Cover-linkedin-asa.png',
+      'Img/background-options/financial-market.jpg',
     );
-    expect(profileCover?.querySelector('.profile-cover__slides')).toBeNull();
-    expect(profileCover?.querySelector('.profile-cover__controls')).toBeNull();
+    expect(profileCover?.querySelector('.profile-cover__slides')).toBeTruthy();
+    expect(profileCover?.querySelector('.profile-cover__controls')).toBeTruthy();
+    expect(profileCover?.querySelector('.profile-cover__slide--active h2')?.textContent).toContain(
+      'MOVE',
+    );
     expect(profileCover?.querySelector('.profile-cover__logo')).toBeNull();
     expect(profileCover?.querySelector('.profile-cover__company')).toBeNull();
     expect(profileCover?.querySelector('.profile-cover__current')).toBeNull();
     expect(profileCover?.textContent).not.toContain('XP Inc.');
     expect(profileCover?.textContent).not.toContain('BTG Pactual');
     expect(profileCover?.textContent).not.toContain('Banco ASA');
-    expect(profileCover?.querySelector('.profile-cover__slide--active h2')).toBeNull();
     expect(compiled.querySelector('#about .profile-avatar')?.getAttribute('src')).toBe(
-      'Img/profile/_33A3031-768.jpg',
+      'Img/profile/danilo-perfil-13-768.jpg',
     );
     expect(compiled.querySelector('.profile-location')?.textContent).toContain(
       'São Paulo, Brasil · Híbrido',
@@ -134,7 +136,6 @@ describe('App', () => {
 
   it('should show interactive finance impact phrases in the cover carousel', () => {
     const fixture = TestBed.createComponent(About);
-    fixture.componentInstance.showCoverCarousel = true;
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement as HTMLElement;
@@ -180,7 +181,6 @@ describe('App', () => {
       });
 
       const fixture = TestBed.createComponent(About);
-      fixture.componentInstance.showCoverCarousel = true;
       try {
         fixture.detectChanges();
         await new Promise<void>((resolve) => window.setTimeout(resolve, 8100));

@@ -48,7 +48,7 @@ export class About implements OnDestroy {
   profileCopyOffset = 0;
   isDragging = false;
   activeCoverSlide = 0;
-  showCoverCarousel = false;
+  showCoverCarousel = true;
   coverRotationEnabled = true;
   coverRotationScheduled = false;
   prefersReducedMotion = true;

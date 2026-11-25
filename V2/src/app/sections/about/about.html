@@ -19,7 +19,7 @@
         (focusin)="pauseCoverRotationForFocus()"
         (focusout)="resumeCoverRotationAfterFocus($event)"
       >
-        <img class="profile-cover__visual" src="Img/cover/Cover-linkedin-asa.png" alt="" />
+        <img class="profile-cover__visual" src="Img/background-options/software-circuit.jpg" alt="" />
         @if (showCoverCarousel) {
           <div class="profile-cover__slides" aria-live="polite">
             @for (slide of coverSlides; track slide.highlight; let index = $index) {
@@ -32,6 +32,9 @@
                 [attr.aria-label]="coverSlideLabel(index)"
               >
                 <div class="profile-cover__slide-copy">
+                  <p class="profile-cover__eyebrow">
+                    {{ 'FINANÇAS · TECNOLOGIA · ENGENHARIA' | translate }}
+                  </p>
                   <h2>
                     {{ slide.before | translate }}<span class="profile-cover__highlight">{{ slide.highlight | translate }}</span>{{ slide.after | translate }}
                   </h2>
@@ -79,7 +82,7 @@
         #profileAvatar
         class="profile-avatar"
         [class.profile-avatar--dragging]="isDragging"
-        src="Img/profile/_33A3031-768.jpg"
+        src="Img/profile/danilo-perfil-13-768.jpg"
         [alt]="'Foto de perfil de Danilo Vasconcellos' | translate"
         role="slider"
         [attr.aria-label]="'Ajustar posição horizontal da foto de perfil' | translate"

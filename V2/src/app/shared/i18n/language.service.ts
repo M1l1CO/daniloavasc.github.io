@@ -52,6 +52,11 @@ const translations: Record<string, Translation> = {
     en: 'Highlights of a career in finance and technology',
     es: 'Aspectos destacados de una trayectoria en finanzas y tecnología',
   },
+  'FINANÇAS · TECNOLOGIA · ENGENHARIA': {
+    pt: 'FINANÇAS · TECNOLOGIA · ENGENHARIA',
+    en: 'FINANCE · TECHNOLOGY · ENGINEERING',
+    es: 'FINANZAS · TECNOLOGÍA · INGENIERÍA',
+  },
   'Navegação do carrossel': { pt: 'Navegação do carrossel', en: 'Carousel navigation', es: 'Navegación del carrusel' },
   'Destaque anterior': { pt: 'Destaque anterior', en: 'Previous highlight', es: 'Aspecto anterior' },
   'Próximo destaque': { pt: 'Próximo destaque', en: 'Next highlight', es: 'Siguiente aspecto' },
